@@ -38,13 +38,25 @@ def Message():
     elif content == u"도움말":
         send_data = {
             "message": {
-                "text": "아래의 text를 입력하시면 그에 맞는 답변이 전송됩니다!\ng"
+                "text": "아래의 text를 입력하시면 그에 맞는 답변이 전송됩니다!\n"
                         "* 셔틀버스 시간표\n"
                         "* 033\n"
                         "* 054\n"
                         "* 학식 메뉴\n"
                         "* 건의 사항\n"
 
+            }
+        }
+    elif (content == u"셔틀버스 시간표") or (content == u"셔틀 시간") or (content == u"셔틀") or (content == u"셔틀 시간표")
+        send_data = {
+            "message": {
+                "text": "요기다가 "
+                        "각 시간을 넣으면"
+                        "될것 같은데"
+                        "현재시간을 파싱해서"
+                        "가장 가까운 셔틀을 "
+                        "출력해주는게 "
+                        "좋겠따."
             }
         }
     elif content == u"033":
@@ -75,12 +87,12 @@ def Message():
 
             }
         }
-    elif content == u"건의 사항":
+    elif (content == u"건의 사항") or (content == u"건의"):
         send_data = {
             "message": {
-                "text": "Kakao Openchat URL : https://open.kakao.com/o/gFWkeII\n"
-                        "Blog URL : http://dork94.tistory.com\n"
-                        "Kakao ID : dorks\n"
+                "text": "Kakao Openchat URL : https://open.kakao.com/o/gFWkeII\n\n"
+                        "Blog URL : http://dork94.tistory.com\n\n"
+                        "Kakao ID : dorks"
 
             }
         }
