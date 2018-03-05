@@ -47,7 +47,7 @@ def Message():
 
             }
         }
-    elif (content == u"셔틀버스 시간표") or (content == u"셔틀 시간") or (content == u"셔틀") or (content == u"셔틀 시간표")
+    elif (content == u"셔틀버스 시간표") or (content == u"셔틀 시간") or (content == u"셔틀") or (content == u"셔틀 시간표") :
         send_data = {
             "message": {
                 "text": "요기다가 "
