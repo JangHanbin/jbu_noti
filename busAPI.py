@@ -12,6 +12,7 @@ def getBusArrivalTime(station_name):
                "goyang-dong_market_054": ["054", "218000050"],
                "goyang-dong_market_033": ["033", "218000050"],
                "univ_front": ["033", "218000812"],
+               "univ_front_054": ["054", "218000812"],
                "univ_front_to_market": ["054", "218000811"],
                "gajang-dong_3-street": ["054","218001318"]
     

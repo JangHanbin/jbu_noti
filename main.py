@@ -74,10 +74,15 @@ def Message():
             }
         }
     elif content == u"054":
-        busAPI.getBusArrivalTime("goyang-dong_market_054")
+        list = [busAPI.getBusArrivalTime("goyang-dong_market_054"),
+                busAPI.getBusArrivalTime("univ_front_054"),
+                busAPI.getBusArrivalTime("univ_front_to_market"),
+                busAPI.getBusArrivalTime("gajang-dong_3-street"),
+                ]
         send_data = {
             "message": {
-                "text": "고양동시장  ----> 필리핀 참전비행 도착 예정시간 API\n\n"
+                "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n"
+                        "고양동시장  ----> 필리핀 참전비행 도착 예정시간 API\n\n"
                         "중부대학교  ----> 필리핀 참전비행 도착 예정시간 API\n\n"
                         "중부대학교  ----> 고양동 시장행 도착 예정시간 API\n\n"
                         "관산동 삼거리 ----> 고양동 시장(중부대학교)행 도착 예정시간 API"
@@ -111,6 +116,15 @@ def Message():
 
     return jsonify(send_data)
 
+
+  # bus_Info["first_time",
+    # "last_time",
+    # "recent_arrival_time",
+    # "next_arrival_time",
+    # "recent_waiting_pot_bool",
+    # "next_waiting_pot_bool",
+    #  "recent_bus_statiton",
+    #  "next_bus_station"]
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=2011)  # 0.0.0.0 mean allow all ip & port set to 2011
