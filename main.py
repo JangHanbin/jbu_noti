@@ -90,13 +90,13 @@ def Message():
         send_data = {
             "message": {
                 "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n" +
-                        "고양동시장  ----> 필리핀 참전비행 : {0}{1}{2}".format(TimeChk(list[0][2]), LocationChk(list[0][6]), Iswaiting(list[0][4]))+"\n\n\n"
+                        "고양동시장  ----> 필리핀 참전비행 :\n{0}{1}{2}".format(TimeChk(list[0][2]), LocationChk(list[0][6]), Iswaiting(list[0][4]))+"\n\n\n"
                         # "고양동시장  ----> 필리핀 참전비행 2번째 : {0}{1}{2}".format(TimeChk(list[0][3]), LocationChk(list[0][7]), Iswaiting(list[0][5]))+"\n-\n\n"
-                        "중부대학교  ----> 필리핀 참전비행 : {0}{1}{2}".format(TimeChk(list[1][2]), LocationChk(list[1][6]), Iswaiting(list[1][4]))+"\n\n\n"
+                        "중부대학교  ----> 필리핀 참전비행 :\n{0}{1}{2}".format(TimeChk(list[1][2]), LocationChk(list[1][6]), Iswaiting(list[1][4]))+"\n\n\n"
                         # "중부대학교  ----> 필리핀 참전비행 2번째 : {0}{1}{2}".format(TimeChk(list[1][3]), LocationChk(list[1][7]), Iswaiting(list[1][5]))+"\n\n\n"
-                        "중부대학교  ----> 고양동 시장행 도착 : {0}{1}{2}".format(TimeChk(list[2][2]), LocationChk(list[2][6]), Iswaiting(list[2][4]))+"\n\n\n"
+                        "중부대학교  ----> 고양동 시장행 도착 :\n{0}{1}{2}".format(TimeChk(list[2][2]), LocationChk(list[2][6]), Iswaiting(list[2][4]))+"\n\n\n"
                         # "중부대학교  ----> 고양동 시장행 도착 2번째 : {0}{1}{2}".format(TimeChk(list[2][3]), LocationChk(list[2][7]), Iswaiting(list[2][5]))+"\n\n\n"
-                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 : {0}{1}{2}".format(TimeChk(list[3][2]), LocationChk(list[3][6]), Iswaiting(list[3][4]))+"\n\n\n"
+                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 :\n{0}{1}{2}".format(TimeChk(list[3][2]), LocationChk(list[3][6]), Iswaiting(list[3][4]))+"\n\n\n"
                         # "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}{2}".format(TimeChk(list[3][3]), LocationChk(list[3][7]), Iswaiting(list[3][5]))+"\n\n\n"
 
             }
