@@ -82,7 +82,8 @@ def Message():
         if content == u"033":
             send_data = {
                 "message": {
-                    "text": "중부대학교  ----> 원흥역행 :\n{0}{1}{2}".format(TimeChk(bus_info[0][2]), LocationChk(bus_info[0][6]), Iswaiting(bus_info[0][4]))+"\n\n\n"
+                    "text": "첫차 시간 : " + bus_info[0][0] + "\n막차 시간 : " + bus_info[0][1]+"\n\n"
+                            "중부대학교  ----> 원흥역행 :\n{0}{1}{2}".format(TimeChk(bus_info[0][2]), LocationChk(bus_info[0][6]), Iswaiting(bus_info[0][4]))+"\n\n\n"
                             "원흥역     ----> 중부대학교행 :\n{0}{1}{2}".format(TimeChk(bus_info[1][2]), LocationChk(bus_info[1][6]), Iswaiting(bus_info[1][4]))+"\n\n\n"
                             "고양동 시장 ----> 중부대학교행 :\n{0}{1}{2}".format(TimeChk(bus_info[2][2]), LocationChk(bus_info[2][6]), Iswaiting(bus_info[2][4]))+"\n\n\n"
                             "고양동 시장 ----> 원흥역행 :\n{0}{1}{2}".format(TimeChk(bus_info[3][2]), LocationChk(bus_info[3][6]), Iswaiting(bus_info[3][4]))+"\n\n\n"
@@ -91,7 +92,8 @@ def Message():
         else:
             send_data = {
                 "message": {
-                    "text": "중부대학교  ----> 원흥역행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5]))+"\n\n\n"
+                    "text": "첫차 시간 : " + bus_info[0][0] + "\n막차 시간 : " + bus_info[0][1]+"\n\n"
+                            "중부대학교  ----> 원흥역행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5]))+"\n\n\n"
                             "원흥역     ----> 중부대학교행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[1][3]), LocationChk(bus_info[1][7]), Iswaiting(bus_info[1][5]))+"\n\n\n"
                             "고양동 시장 ----> 중부대학교행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[2][3]), LocationChk(bus_info[2][7]), Iswaiting(bus_info[2][5]))+"\n\n\n"
                             "고양동 시장 ----> 원흥역행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5]))+"\n\n\n"
