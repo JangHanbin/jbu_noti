@@ -22,6 +22,12 @@ def Iswaiting(delay_info):
 
 def MakeFoodList(food_menus, day):
     return "[{0} 메뉴] ".format(food_menus[0][day]) + "\n" + "<한식>\n" + food_menus[1]["korean"][day] + "\n" + "<일품1>\n" + food_menus[1]["food1"][day] + "\n" + "<일품2>\n" + food_menus[1]["food2"][day] + "\n\n\n"
+
+
+button_data = {
+    "type": "buttons",
+    "buttons": ["시작하기", "도움말" , "* 셔틀버스 시간표 * ", "* 033 *" ,"* 033-2 *", "* 054 *", "* 054-2 *",  "* 학식 메뉴 *", "* 건의 사항 *"]
+}
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
@@ -29,7 +35,7 @@ def Keyboard():
         "buttons": ["시작하기", "도움말"]
     }
 
-    return jsonify(send_data)
+    return jsonify(button_data)
 
 
 @app.route('/message', methods=['POST'])
@@ -159,7 +165,7 @@ def Message():
             }
         }
 
-    return jsonify(send_data)
+    return jsonify(send_data,button_data)
 
 
 # bus_Info["first_time", 0
