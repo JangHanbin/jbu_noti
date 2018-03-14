@@ -88,10 +88,9 @@ def Message():
         send_data = {
             "message": {
                 "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n"
-                        + TimeChk(list[0][2]) + 
-                        # "고양동시장  ----> 필리핀 참전비행 1번째 : {0}{1}".format(TimeChk(list[0][2]),LocationChk(list[0][6]))+"\n\n"
+                        "고양동시장  ----> 필리핀 참전비행 1번째 : {0}{1}".format(TimeChk(list[0][2]),LocationChk(list[0][6]))+"\n\n"
                         "고양동시장  ----> 필리핀 참전비행 2번째 : " + TimeChk(list[0][3]) + LocationChk(list[0][7])+"\n\n"
-                        "중부대학교  ----> 필리핀 참전비행 1번째 : " +
+                        "중부대학교  ----> 필리핀 참전비행 1번째 : "
                         "중부대학교  ----> 고양동 시장행 도착 예정시간 API\n\n"
                         "관산동 삼거리 ----> 고양동 시장(중부대학교)행 도착 예정시간 API"
 
