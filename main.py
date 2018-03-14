@@ -23,11 +23,10 @@ def Iswaiting(delay_info):
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
-        "message": {
-            "text": "원하는 키워드를 보내주세요!\n"
-                    "현재 PC카톡에서의 동작은 구현되지 않았습니다.\n"
-                    "* 키워드는 \"도움말\"을 입력하세요 *"
-        }
+        "type": "text",
+        "content": "원하는 키워드를 보내주세요!\n""
+                   "현재 PC카톡에서의 동작은 구현되지 않았습니다.\n""
+                   "* 키워드는 \"도움말\"을 입력하세요 *"
     }
 
     return jsonify(send_data)
