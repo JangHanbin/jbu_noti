@@ -12,10 +12,10 @@ def TimeChk(time):
     return "도착 정보 없음" if not time else "{0}분 후 도착 예정".format(time)
 
 def LocationChk(location):
-    return "\t정류장 정보 없음" if not location else "\t{0}전 ".format(location)
+    return " 정류장 정보 없음" if not location else " {0}전 ".format(location)
 
 def Iswaiting(delay_info):
-    return "\t회차지 대기중 " if delay_info is "N" else ""
+    return " 회차지 대기중 " if delay_info is "N" else ""
 
 @app.route('/keyboard')
 def Keyboard():
@@ -119,7 +119,7 @@ def Message():
             send_data = {
                 "message": {
                     "text": "첫차 시간 : " + bus_info[0][0] + "\n막차 시간 : " + bus_info[0][1] + "\n\n" +
-                            "고양동시장  ----> 필리핀 참전비행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5]))+"\n-\n\n"
+                            "고양동시장  ----> 필리핀 참전비행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5]))+"\n\n\n"
                             "중부대학교  ----> 필리핀 참전비행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[1][3]), LocationChk(bus_info[1][7]), Iswaiting(bus_info[1][5]))+"\n\n\n"
                             "중부대학교  ----> 고양동 시장행 도착 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[2][3]), LocationChk(bus_info[2][7]), Iswaiting(bus_info[2][5]))+"\n\n\n"
                             "관산동 삼거리 ----> 고양동 시장(중부대학교)행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5]))+"\n\n\n"
