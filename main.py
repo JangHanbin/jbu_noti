@@ -83,10 +83,8 @@ def Message():
         list = [busAPI.getBusArrivalTime("goyang-dong_market_054"),
                 busAPI.getBusArrivalTime("univ_front_054"),
                 busAPI.getBusArrivalTime("univ_front_to_market"),
-                busAPI.getBusArrivalTime("gajang-dong_3-street"),
+                busAPI.getBusArrivalTime("gajang-dong_3-street")
                 ]
-        print(TimeChk(list[0][2]))
-        print(LocationChk(list[0][7]))
         send_data = {
             "message": {
                 "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n"
