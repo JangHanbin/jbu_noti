@@ -48,8 +48,9 @@ def Message():
                         "'-2' 는 다음 배차에 대한 답변을 드립니다!\n"
                         "* 셔틀버스 시간표\n"
                         "* 033\n"
+                        "* 033-2\n"
                         "* 054\n"
-                        "* 054-2"
+                        "* 054-2\n"
                         "* 학식 메뉴\n"
                         "* 건의 사항\n"
 
@@ -72,18 +73,32 @@ def Message():
                         "노선에 대한정보까지 입력받아 출력할 것"
             }
         }
-    elif content == u"033":
-        send_data = {
-            "message": {
-                "text": "중부대학교  ----> 원흥역행 도착 예정시간 API\n\n"
-                        "원흥역     ----> 중부대학교행 도착 예정 시간 API\n\n"
-                        "고양동 시장 ----> 중부대학교행 도착 예정 시간 API\n\n"
-                        "고양동 시장 ----> 원흥역행 도착 예정 시간 API"
-
+    elif content == u"033" or (content == u"033-2"):
+        bus_info = [busAPI.getBusArrivalTime("univ_front"),
+                    busAPI.getBusArrivalTime("dormitory"),
+                    busAPI.getBusArrivalTime("goyang-dong_market_033"),
+                    busAPI.getBusArrivalTime("goyang-dong_market_to_subway")
+                    ]
+        if content == u"033":
+            send_data = {
+                "message": {
+                    "text": "중부대학교  ----> 원흥역행 :\n{0}{1}{2}".format(TimeChk(bus_info[0][2]), LocationChk(bus_info[0][6]), Iswaiting(bus_info[0][4]))+"\n\n\n"
+                            "원흥역     ----> 중부대학교행 :\n{0}{1}{2}".format(TimeChk(bus_info[1][2]), LocationChk(bus_info[1][6]), Iswaiting(bus_info[1][4]))+"\n\n\n"
+                            "고양동 시장 ----> 중부대학교행 :\n{0}{1}{2}".format(TimeChk(bus_info[2][2]), LocationChk(bus_info[2][6]), Iswaiting(bus_info[2][4]))+"\n\n\n"
+                            "고양동 시장 ----> 원흥역행 :\n{0}{1}{2}".format(TimeChk(bus_info[3][2]), LocationChk(bus_info[3][6]), Iswaiting(bus_info[3][4]))+"\n\n\n"
+                }
             }
-        }
+        else:
+            send_data = {
+                "message": {
+                    "text": "중부대학교  ----> 원흥역행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5]))+"\n\n\n"
+                            "원흥역     ----> 중부대학교행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[1][3]), LocationChk(bus_info[1][7]), Iswaiting(bus_info[1][5]))+"\n\n\n"
+                            "고양동 시장 ----> 중부대학교행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[2][3]), LocationChk(bus_info[2][7]), Iswaiting(bus_info[2][5]))+"\n\n\n"
+                            "고양동 시장 ----> 원흥역행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5]))+"\n\n\n"
+                }
+            }
     elif content == u"054" or (content == u"054-2"):
-        list = [busAPI.getBusArrivalTime("goyang-dong_market_054"),
+        bus_info = [busAPI.getBusArrivalTime("goyang-dong_market_054"),
                 busAPI.getBusArrivalTime("univ_front_054"),
                 busAPI.getBusArrivalTime("univ_front_to_market"),
                 busAPI.getBusArrivalTime("gajang-dong_3-street")
@@ -91,26 +106,21 @@ def Message():
         if content == u"054":
             send_data = {
                 "message": {
-                    "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n" +
-                            "고양동시장  ----> 필리핀 참전비행 :\n{0}{1}{2}".format(TimeChk(list[0][2]), LocationChk(list[0][6]), Iswaiting(list[0][4]))+"\n\n\n"
-                            # "고양동시장  ----> 필리핀 참전비행 2번째 : {0}{1}{2}".format(TimeChk(list[0][3]), LocationChk(list[0][7]), Iswaiting(list[0][5]))+"\n-\n\n"
-                            "중부대학교  ----> 필리핀 참전비행 :\n{0}{1}{2}".format(TimeChk(list[1][2]), LocationChk(list[1][6]), Iswaiting(list[1][4]))+"\n\n\n"
-                            # "중부대학교  ----> 필리핀 참전비행 2번째 : {0}{1}{2}".format(TimeChk(list[1][3]), LocationChk(list[1][7]), Iswaiting(list[1][5]))+"\n\n\n"
-                            "중부대학교  ----> 고양동 시장행 도착 :\n{0}{1}{2}".format(TimeChk(list[2][2]), LocationChk(list[2][6]), Iswaiting(list[2][4]))+"\n\n\n"
-                            # "중부대학교  ----> 고양동 시장행 도착 2번째 : {0}{1}{2}".format(TimeChk(list[2][3]), LocationChk(list[2][7]), Iswaiting(list[2][5]))+"\n\n\n"
-                            "관산동 삼거리 ----> 고양동 시장(중부대학교)행 :\n{0}{1}{2}".format(TimeChk(list[3][2]), LocationChk(list[3][6]), Iswaiting(list[3][4]))+"\n\n\n"
-                            # "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}{2}".format(TimeChk(list[3][3]), LocationChk(list[3][7]), Iswaiting(list[3][5]))+"\n\n\n"
-
+                    "text": "첫차 시간 : " + bus_info[0][0] + "\n막차 시간 : " + bus_info[0][1]+"\n\n"
+                            "고양동시장  ----> 필리핀 참전비행 :\n{0}{1}{2}".format(TimeChk(bus_info[0][2]), LocationChk(bus_info[0][6]), Iswaiting(bus_info[0][4]))+"\n\n\n"
+                            "중부대학교  ----> 필리핀 참전비행 :\n{0}{1}{2}".format(TimeChk(bus_info[1][2]), LocationChk(bus_info[1][6]), Iswaiting(bus_info[1][4]))+"\n\n\n"
+                            "중부대학교  ----> 고양동 시장행 도착 :\n{0}{1}{2}".format(TimeChk(bus_info[2][2]), LocationChk(bus_info[2][6]), Iswaiting(bus_info[2][4]))+"\n\n\n"
+                            "관산동 삼거리 ----> 고양동 시장(중부대학교)행 :\n{0}{1}{2}".format(TimeChk(bus_info[3][2]), LocationChk(bus_info[3][6]), Iswaiting(bus_info[3][4]))+"\n\n\n"
                 }
             }
         else:
             send_data = {
                 "message": {
-                    "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1] + "\n\n" +
-                            "고양동시장  ----> 필리핀 참전비행 2번째 :\n{0}{1}{2}".format(TimeChk(list[0][3]), LocationChk(list[0][7]), Iswaiting(list[0][5]))+"\n-\n\n"
-                            "중부대학교  ----> 필리핀 참전비행 2번째 :\n{0}{1}{2}".format(TimeChk(list[1][3]), LocationChk(list[1][7]), Iswaiting(list[1][5]))+"\n\n\n"
-                            "중부대학교  ----> 고양동 시장행 도착 2번째 :\n{0}{1}{2}".format(TimeChk(list[2][3]), LocationChk(list[2][7]), Iswaiting(list[2][5]))+"\n\n\n"
-                            "관산동 삼거리 ----> 고양동 시장(중부대학교)행 2번째 :\n{0}{1}{2}".format(TimeChk(list[3][3]), LocationChk(list[3][7]), Iswaiting(list[3][5]))+"\n\n\n"
+                    "text": "첫차 시간 : " + bus_info[0][0] + "\n막차 시간 : " + bus_info[0][1] + "\n\n" +
+                            "고양동시장  ----> 필리핀 참전비행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5]))+"\n-\n\n"
+                            "중부대학교  ----> 필리핀 참전비행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[1][3]), LocationChk(bus_info[1][7]), Iswaiting(bus_info[1][5]))+"\n\n\n"
+                            "중부대학교  ----> 고양동 시장행 도착 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[2][3]), LocationChk(bus_info[2][7]), Iswaiting(bus_info[2][5]))+"\n\n\n"
+                            "관산동 삼거리 ----> 고양동 시장(중부대학교)행 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5]))+"\n\n\n"
                 }
             }
     elif (content == u"학식 메뉴") or (content == u"학식"):
