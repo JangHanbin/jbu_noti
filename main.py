@@ -166,8 +166,8 @@ def Message():
                         "\"도움말\"을 입력하여 가능한 도움말을 찾아보세요! "
             }
         }
-    test = {send_data.items(), button_data.items()}
-    return jsonify(test)
+    send_data.update(button_data)
+    return jsonify(send_data, button_data)
 
 
 # bus_Info["first_time", 0
