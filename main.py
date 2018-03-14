@@ -37,12 +37,10 @@ button_data = {
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
-        "Keyboard": {
-            "type": "buttons",
-            "buttons": ["시작하기", "도움말"]
-        }
+        "type": "buttons",
+        "buttons": ["시작하기", "도움말"]
     }
-    return jsonify(button_data)
+    return jsonify(send_data)
 
 
 @app.route('/message', methods=['POST'])
@@ -172,7 +170,7 @@ def Message():
             }
         }
     send_data.update(button_data)  # merge message and keyboard menu
-    return jsonify(send_data)
+    return jsonify(button_data)
 
 
 # bus_Info["first_time", 0
