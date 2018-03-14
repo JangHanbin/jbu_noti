@@ -91,7 +91,7 @@ def Message():
                             "[중부대학교] -> [원흥역] :\n{0}{1}{2}".format(TimeChk(bus_info[0][2]), LocationChk(bus_info[0][6]), Iswaiting(bus_info[0][4])) + "\n\n\n" +
                             "[원흥연합기숙사] -> [중부대학교] :\n{0}{1}{2}".format(TimeChk(bus_info[1][2]), LocationChk(bus_info[1][6]), Iswaiting(bus_info[1][4])) + "\n\n\n" +
                             "[고양동 시장] -> [중부대학교] :\n{0}{1}{2}".format(TimeChk(bus_info[2][2]),LocationChk(bus_info[2][6]),Iswaiting(bus_info[2][4])) + "\n\n\n" +
-                            "[고양동 시장] -> [원흥역] :\n{0}{1}{2}".format(TimeChk(bus_info[3][2]), LocationChk(bus_info[3][6]), Iswaiting(bus_info[3][4])) + "\n\n\n" +
+                            "[고양동 시장] -> [원흥역] :\n{0}{1}{2}".format(TimeChk(bus_info[3][2]), LocationChk(bus_info[3][6]), Iswaiting(bus_info[3][4])) + "\n\n\n" 
                 }
             }
         else:
@@ -102,7 +102,7 @@ def Message():
                             "[중부대학교] -> [원흥역] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5])) + "\n\n\n" +
                             "[원흥연합기숙사] -> [중부대학교] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[1][3]), LocationChk(bus_info[1][7]), Iswaiting(bus_info[1][5])) + "\n\n\n" +
                             "[고양동 시장] -> [중부대학교] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[2][3]),LocationChk(bus_info[2][7]),Iswaiting(bus_info[2][5])) + "\n\n\n" +
-                            "[고양동 시장] -> [원흥역] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5])) + "\n\n\n" +
+                            "[고양동 시장] -> [원흥역] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5])) + "\n\n\n"
                 }
             }
     elif content == u"054" or (content == u"054-2"):
