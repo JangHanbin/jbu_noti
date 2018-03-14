@@ -46,16 +46,19 @@ def getBusArrivalTime(station_name):
     # "next_arrival_time",
     # "recent_waiting_pot_bool",
     # "next_waiting_pot_bool",
-    #  "recent_bus_statiton",
-    #  "next_bus_station"]
+    # "recent_bus_station",
+    # "next_bus_station"]
     
     for busArrivalInfo in json_data["result"]["busArrivalInfo"]:
         if busArrivalInfo["routeName"] == "054":
             bus_info = [busArrivalInfo["firstTime"],
                         busArrivalInfo["lastTime"],
                         busArrivalInfo["predictTime1"],
+                        busArrivalInfo["predictTime2"],
                         busArrivalInfo["delayYn1"],
-                        busArrivalInfo["delayYn2"]
+                        busArrivalInfo["delayYn2"],
+                        busArrivalInfo["locationNo1"],
+                        busArrivalInfo["locationNo2"]
                         ]
     return bus_info
 
