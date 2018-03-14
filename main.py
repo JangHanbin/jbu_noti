@@ -169,7 +169,6 @@ def Message():
             }
         }
     send_data.update(button_data)  # merge message and keyboard menu
-    print(send_data)
     return jsonify(send_data)
 
 
