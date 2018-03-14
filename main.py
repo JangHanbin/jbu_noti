@@ -14,7 +14,7 @@ def TimeChk(time):
     return "도착 정보 없음" if not time else "{0}분 후 도착 예정".format(time)
 
 def LocationChk(location):
-    return "\t정류장 정보 없음" if not location else "{0}전 ".format(location)
+    return "\t정류장 정보 없음" if not location else "\t{0}전 ".format(location)
 
 @app.route('/keyboard')
 def Keyboard():
@@ -88,11 +88,14 @@ def Message():
         send_data = {
             "message": {
                 "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n"
-                        "고양동시장  ----> 필리핀 참전비행 1번째 : {0}{1}".format(TimeChk(list[0][2]),LocationChk(list[0][6]))+"\n\n"
+                        "고양동시장  ----> 필리핀 참전비행 1번째 : {0}{1}".format(TimeChk(list[0][2]),LocationChk(list[0][6]))+"\n"
                         "고양동시장  ----> 필리핀 참전비행 2번째 : {0}{1}".format(TimeChk(list[0][3]),LocationChk(list[0][7]))+"\n\n"
-                        "중부대학교  ----> 필리핀 참전비행 1번째 : "
-                        "중부대학교  ----> 고양동 시장행 도착 예정시간 API\n\n"
-                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 도착 예정시간 API"
+                        "중부대학교  ----> 필리핀 참전비행 1번째 : {0}{1}".format(TimeChk(list[1][2]),LocationChk(list[1][6]))+"\n"
+                        "중부대학교  ----> 필리핀 참전비행 2번째 : {0}{1}".format(TimeChk(list[1][3]),LocationChk(list[1][7]))+"\n\n"
+                        "중부대학교  ----> 고양동 시장행 도착 1번째 : {0}{1}".format(TimeChk(list[2][2]),LocationChk(list[2][6]))+"\n"
+                        "중부대학교  ----> 고양동 시장행 도착 2번째 : {0}{1}".format(TimeChk(list[2][3]),LocationChk(list[2][7]))+"\n\n"
+                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}".format(TimeChk(list[3][2]),LocationChk(list[3][6]))+"\n"
+                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}".format(TimeChk(list[3][3]),LocationChk(list[3][7]))+"\n\n"
 
             }
         }
