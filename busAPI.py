@@ -58,7 +58,7 @@ def getBusArrivalTime(station_name):
                         busArrivalInfo["delayYn1"],
                         busArrivalInfo["delayYn2"],
                         busArrivalInfo["locationNo1"],
-                        busArrivalInfo["locationNo2"]
+                        busArrivalInfo["locationNo2"],
                         ]
     return bus_info
 

@@ -16,6 +16,9 @@ def TimeChk(time):
 def LocationChk(location):
     return "\t정류장 정보 없음" if not location else "\t{0}전 ".format(location)
 
+def Iswaiting(delay_info):
+    return "\t회차지 대기중 " if delay_info is "N" else ""
+
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
@@ -88,14 +91,15 @@ def Message():
         send_data = {
             "message": {
                 "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n"
-                        "고양동시장  ----> 필리핀 참전비행 1번째 : {0}{1}".format(TimeChk(list[0][2]),LocationChk(list[0][6]))+"\n"
-                        "고양동시장  ----> 필리핀 참전비행 2번째 : {0}{1}".format(TimeChk(list[0][3]),LocationChk(list[0][7]))+"\n\n"
-                        "중부대학교  ----> 필리핀 참전비행 1번째 : {0}{1}".format(TimeChk(list[1][2]),LocationChk(list[1][6]))+"\n"
-                        "중부대학교  ----> 필리핀 참전비행 2번째 : {0}{1}".format(TimeChk(list[1][3]),LocationChk(list[1][7]))+"\n\n"
-                        "중부대학교  ----> 고양동 시장행 도착 1번째 : {0}{1}".format(TimeChk(list[2][2]),LocationChk(list[2][6]))+"\n"
-                        "중부대학교  ----> 고양동 시장행 도착 2번째 : {0}{1}".format(TimeChk(list[2][3]),LocationChk(list[2][7]))+"\n\n"
-                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}".format(TimeChk(list[3][2]),LocationChk(list[3][6]))+"\n"
-                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}".format(TimeChk(list[3][3]),LocationChk(list[3][7]))+"\n\n"
+                        "고양동시장  ----> 필리핀 참전비행 1번째 : {0}{1}{2}".format(TimeChk(list[0][2]),LocationChk(list[0][6]),Iswaiting(list[0][4]))+"\n"
+                        "고양동시장  ----> 필리핀 참전비행 2번째 : {0}{1}{2}".format(TimeChk(list[0][3]),LocationChk(list[0][7]),Iswaiting(list[0][5]))+"\n\n"
+                        "중부대학교  ----> 필리핀 참전비행 1번째 : {0}{1}{2}".format(TimeChk(list[1][2]),LocationChk(list[1][6]),Iswaiting(list[1][4]))+"\n"
+                        "중부대학교  ----> 필리핀 참전비행 2번째 : {0}{1}{2}".format(TimeChk(list[1][3]),LocationChk(list[1][7]),Iswaiting(list[1][5]))+"\n\n"
+                        "중부대학교  ----> 고양동 시장행 도착 1번째 : {0}{1}{2}".format(TimeChk(list[2][2]),LocationChk(list[2][6]),Iswaiting(list[2][4]))+"\n"
+                        "중부대학교  ----> 고양동 시장행 도착 2번째 : {0}{1}{2}".format(TimeChk(list[2][3]),LocationChk(list[2][7]),Iswaiting(list[2][5]))+"\n\n"
+                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}{2}".format(TimeChk(list[3][2]),LocationChk(list[3][6]),Iswaiting(list[3][4]))+"\n"
+                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}{2}".format(TimeChk(list[3][3]),LocationChk(list[3][7]),Iswaiting(list[3][5]))+"\n\n"
+                        "관산동 삼거리 ----> 고양동 시장(중부대학교)행 1번째 : {0}{1}{2}".format(TimeChk(list[3][3]),LocationChk(list[3][7]),Iswaiting(list[3][5]))+"\n\n"
 
             }
         }
@@ -127,14 +131,14 @@ def Message():
     return jsonify(send_data)
 
 
-  # bus_Info["first_time",
-    # "last_time",
-    # "recent_arrival_time",
-    # "next_arrival_time",
-    # "recent_waiting_pot_bool",
-    # "next_waiting_pot_bool",
-    #  "recent_bus_station",
-    #  "next_bus_station"]
+  # bus_Info["first_time", 0
+    # "last_time", 1
+    # "recent_arrival_time", 2
+    # "next_arrival_time", 3
+    # "recent_waiting_pot", 4
+    # "next_waiting_pot", 5
+    #  "recent_bus_station", 6
+    #  "next_bus_station"] 7
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=2011)  # 0.0.0.0 mean allow all ip & port set to 2011
