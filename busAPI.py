@@ -51,11 +51,12 @@ def getBusArrivalTime(station_name):
     
     for busArrivalInfo in json_data["result"]["busArrivalInfo"]:
         if busArrivalInfo["routeName"] == "054":
-            bus_info = [busArrivalInfo["firstTime"],
+            bus_info = {busArrivalInfo["firstTime"],
                         busArrivalInfo["lastTime"],
-                        "도착 정보 없음" if not busArrivalInfo["predictTime1"] else busArrivalInfo["predictTime1"],
-                        "회차지 대기 중 ", "회차지 대기 중" if busArrivalInfo["delayYn1"] is "N" else "",
-                        "두번째 차량 회차지 대기 중" if busArrivalInfo["delayYn2"] is "N" else ""]
+                        busArrivalInfo["predictTime1"],
+                        busArrivalInfo["delayYn1"],
+                        busArrivalInfo["delayYn2"]
+                        }
     return bus_info
 
 

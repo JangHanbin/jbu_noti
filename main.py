@@ -10,6 +10,12 @@ import busAPI
 app = Flask(__name__)
 
 
+def TimeChk(time):
+    return "도착 정보 없음" if not time else "{0}분 후 도착 예정".format(time)
+
+def LocationChk(location):
+    return "\t정류장 정보 없음" if not location else "{0}전 ".format(location)
+
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
@@ -82,8 +88,9 @@ def Message():
         send_data = {
             "message": {
                 "text": "첫차 시간 : " + list[0][0] + "\n막차 시간 : " + list[0][1]+"\n\n"
-                        "고양동시장  ----> 필리핀 참전비행 도착 예정시간 API\n\n"
-                        "중부대학교  ----> 필리핀 참전비행 도착 예정시간 API\n\n"
+                        "고양동시장  ----> 필리핀 참전비행 1번째 : " + TimeChk(list[0][2]) + LocationChk(list[0][6])+"\n\n"
+                        "고양동시장  ----> 필리핀 참전비행 2번째 : " + TimeChk(list[0][3]) + LocationChk(list[0][7])+"\n\n"
+                        "중부대학교  ----> 필리핀 참전비행 1번째 : " +
                         "중부대학교  ----> 고양동 시장행 도착 예정시간 API\n\n"
                         "관산동 삼거리 ----> 고양동 시장(중부대학교)행 도착 예정시간 API"
 
@@ -123,7 +130,7 @@ def Message():
     # "next_arrival_time",
     # "recent_waiting_pot_bool",
     # "next_waiting_pot_bool",
-    #  "recent_bus_statiton",
+    #  "recent_bus_station",
     #  "next_bus_station"]
 
 if __name__ == "__main__":
