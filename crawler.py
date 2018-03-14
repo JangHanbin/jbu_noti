@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def do_crawling():
+def shuttle_crawling():
     url = "http://www.joongbu.ac.kr/home/sub01_09_03.do"  # JBU Univ Shuttle bus information web page
 
     res = requests.get(url)
@@ -53,9 +53,68 @@ def do_crawling():
         print("\n\n")
 
 
+def food_crawling():
+    url = "http://www.joongbu.ac.kr/food/sub04_06_03/3.do"
+
+    res = requests.get(url)
+
+    html = res.text  # save response to html
+
+    soup = BeautifulSoup(html, 'html.parser')  # parsing html(response html code) using html.parser
+
+    dates = soup.select(
+        '#content > table > thead > tr > th '  # parsing this selector
+    )
+    date_info = list()
+
+    # parsing date
+    for date in dates:
+        if '/' in date.text:
+            date_info.append(date.text)
+
+    # parsing food menus
+    foods = soup.select(
+        '#content > table > tbody > tr > td'
+    )
+
+    find_section = False
+    food1 = False
+    food2 = False
+
+    menus = dict(korean=[], food1=[], food2=[])
+    for food in foods:
+        if "석식" in food.text:
+            break
+
+        if find_section:
+            if "일품2" in food.text:
+                food2 = True
+                continue # skip this text
+            elif "일품1" in food.text:
+                food1 = True
+                continue # skip this text
+
+            if not food1 and not food2:  # if korean food
+                for newline in food.select("br"):  # replace <br> to space
+                    newline.replace_with(" ")
+                menus["korean"].append(food.text)
+            elif food1 and food2: # if food2
+                for newline in food.select("br"):  # replace <br> to space
+                    newline.replace_with(" ")
+                menus["food2"].append(food.text)
+            elif food1 and not food2:  # if food1 and there is don't have to replace loop if they have more foods, then need to add replace loop
+                menus["food1"].append(food.text)
+
+        elif "한식" in food.text:
+            find_section = True;
+
+    return [date_info, menus]
+
+
+
 # need to save route information & derparture time, price
 
 if __name__ == '__main__':
-    do_crawling()
+    food_crawling()
 # else:
 #     print(__name__)
