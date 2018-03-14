@@ -166,7 +166,7 @@ def Message():
                         "\"도움말\"을 입력하여 가능한 도움말을 찾아보세요! "
             }
         }
-    test = {send_data, button_data}
+    test = {send_data.items(), button_data.items()}
     return jsonify(test)
 
 
