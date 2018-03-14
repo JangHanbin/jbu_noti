@@ -20,7 +20,8 @@ def LocationChk(location):
 def Iswaiting(delay_info):
     return " 회차지 대기중 " if delay_info is "N" else ""
 
-
+def MakeFoodList(food_menus, day):
+    return "[{0} 메뉴] ".format(food_menus[0][day]) + "\n" + "<한식>\n" + food_menus[1]["korean"][day] + "\n" + "<일품1>\n" + food_menus[1]["food1"][day] + "\n" + "<일품2>\n" + food_menus[1]["food2"][day] + "\n"
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
@@ -91,7 +92,7 @@ def Message():
                             "[중부대학교] -> [원흥역] :\n{0}{1}{2}".format(TimeChk(bus_info[0][2]), LocationChk(bus_info[0][6]), Iswaiting(bus_info[0][4])) + "\n\n\n" +
                             "[원흥연합기숙사] -> [중부대학교] :\n{0}{1}{2}".format(TimeChk(bus_info[1][2]), LocationChk(bus_info[1][6]), Iswaiting(bus_info[1][4])) + "\n\n\n" +
                             "[고양동 시장] -> [중부대학교] :\n{0}{1}{2}".format(TimeChk(bus_info[2][2]),LocationChk(bus_info[2][6]),Iswaiting(bus_info[2][4])) + "\n\n\n" +
-                            "[고양동 시장] -> [원흥역] :\n{0}{1}{2}".format(TimeChk(bus_info[3][2]), LocationChk(bus_info[3][6]), Iswaiting(bus_info[3][4])) + "\n\n\n" 
+                            "[고양동 시장] -> [원흥역] :\n{0}{1}{2}".format(TimeChk(bus_info[3][2]), LocationChk(bus_info[3][6]), Iswaiting(bus_info[3][4])) + "\n\n\n"
                 }
             }
         else:
@@ -137,10 +138,7 @@ def Message():
         food_menus = crawler.food_crawling()
         send_data = {
             "message": {
-                "text": "[{0} 메뉴] ".format(food_menus[0][0])+"\n" +
-                        "<한식>\n" + food_menus[1]["korean"][0]+"\n" +
-                        "<일품1>\n" + food_menus[1]["food1"][0]+"\n" +
-                        "<일품2>\n" + food_menus[1]["food2"][0]+"\n"
+                "text": MakeFoodList(food_menus, 0) + MakeFoodList(food_menus, 1) + MakeFoodList(food_menus, 2) + MakeFoodList(food_menus, 3) + MakeFoodList(food_menus, 4)
 
             }
         }
