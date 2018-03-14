@@ -23,10 +23,8 @@ def Iswaiting(delay_info):
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
-        "type": "text",
-        "content": "원하는 키워드를 보내주세요!\n""
-                   "현재 PC카톡에서의 동작은 구현되지 않았습니다.\n""
-                   "* 키워드는 \"도움말\"을 입력하세요 *"
+        "type": "buttons",
+        "buttons": ["시작하기", "도움말"]
     }
 
     return jsonify(send_data)
@@ -170,7 +168,7 @@ def Message():
 
             }
         }
-    elif (content == u"건의 사항") or (content == u"건의"):
+    elif (content == u"건의 사항") or (content == u"건의") or (content == u"건의사항"):
         send_data = {
             "message": {
                 "text": "Kakao Openchat URL : https://open.kakao.com/o/gFWkeII\n\n"
