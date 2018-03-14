@@ -29,7 +29,7 @@ def MakeFoodList(food_menus, day):
 button_data = {
     "keyboard": {
         "type": "buttons",
-        "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 *", "* 033 *", "* 033-2 *", "* 054 *", "* 054-2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
+        "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 *", "* 033 *", "* 033 -2 *", "* 054 *", "* 054 -2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
     }
 }
 
@@ -59,13 +59,13 @@ def Message():
     elif content == u"도움말":
         send_data = {
             "message": {
-                "text": "아래의 text를 보내주시 그에 맞는 답변이 전송됩니다!\n"
+                "text": "아래의 text를 보내주시면 그에 맞는 답변이 전송됩니다!\n"
                         "'-2' 는 다음 배차에 대한 답변을 드립니다!\n"
                         "* 셔틀버스 시간표\n"
                         "* 033\n"
-                        "* 033-2\n"
+                        "* 033 -2\n"
                         "* 054\n"
-                        "* 054-2\n"
+                        "* 054 -2\n"
                         "* 학식 메뉴\n"
                         "* 건의 사항\n"
 
@@ -88,7 +88,7 @@ def Message():
                         "노선에 대한정보까지 입력받아 출력할 것"
             }
         }
-    elif content == u"* 033 *" or (content == u"* 033-2 *"):
+    elif content == u"* 033 *" or (content == u"* 033 -2 *"):
         bus_info = [busAPI.getBusArrivalTime("univ_front"),
                     busAPI.getBusArrivalTime("dormitory"),
                     busAPI.getBusArrivalTime("goyang-dong_market_033"),
@@ -116,7 +116,7 @@ def Message():
                             "[고양동 시장] -> [원흥역] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5])) + "\n\n\n"
                 }
             }
-    elif content == u"* 054 *" or (content == u"* 054-2 *"):
+    elif content == u"* 054 *" or (content == u"* 054 -2 *"):
         bus_info = [busAPI.getBusArrivalTime("goyang-dong_market_054"),
                     busAPI.getBusArrivalTime("univ_front_054"),
                     busAPI.getBusArrivalTime("univ_front_to_market"),
