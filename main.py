@@ -4,17 +4,17 @@
 import os
 from flask import Flask, request, jsonify
 
-
+import crawler
+import busAPI
 
 app = Flask(__name__)
 
 
 @app.route('/keyboard')
 def Keyboard():
-
     send_data = {
-        "type"  :   "buttons",
-        "buttons"   : ["시작하기", "도움말"]
+        "type": "buttons",
+        "buttons": ["시작하기", "도움말"]
     }
 
     return jsonify(send_data)
@@ -22,8 +22,7 @@ def Keyboard():
 
 @app.route('/message', methods=['POST'])
 def Message():
-
-    received_data= request.get_json()
+    received_data = request.get_json()
     content = received_data['content']
 
     if content == u"시작하기":
@@ -47,7 +46,7 @@ def Message():
 
             }
         }
-    elif (content == u"셔틀버스 시간표") or (content == u"셔틀 시간") or (content == u"셔틀") or (content == u"셔틀 시간표") :
+    elif (content == u"셔틀버스 시간표") or (content == u"셔틀 시간") or (content == u"셔틀") or (content == u"셔틀 시간표"):
         send_data = {
             "message": {
                 "text": "요기다가 "
@@ -57,6 +56,11 @@ def Message():
                         "가장 가까운 셔틀을 "
                         "출력해주는게 "
                         "좋겠따."
+                        "셔틀은 홈페이지정보를 파싱했기때문에"
+                        "부정확할수도있다고"
+                        "말해줄것"
+                        "그리고 노선이 너무 많으므로 "
+                        "노선에 대한정보까지 입력받아 출력할 것"
             }
         }
     elif content == u"033":
@@ -70,6 +74,7 @@ def Message():
             }
         }
     elif content == u"054":
+        busAPI.getBusArrivalTime("goyang-dong_market_054")
         send_data = {
             "message": {
                 "text": "고양동시장  ----> 필리핀 참전비행 도착 예정시간 API\n\n"
@@ -107,6 +112,5 @@ def Message():
     return jsonify(send_data)
 
 
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port = 2011) #0.0.0.0 mean allow all ip & port set to 2011
+    app.run(host="0.0.0.0", port=2011)  # 0.0.0.0 mean allow all ip & port set to 2011
