@@ -27,7 +27,7 @@ def MakeFoodList(food_menus, day):
 
 
 button_data = {
-    "Keyboard": {
+    "keyboard": {
         "type": "buttons",
         "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 * ", "* 033 *", "* 033-2 *", "* 054 *", "* 054-2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
     }
