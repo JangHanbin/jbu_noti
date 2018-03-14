@@ -17,15 +17,15 @@ def LocationChk(location):
 def Iswaiting(delay_info):
     return " 회차지 대기중 " if delay_info is "N" else ""
 
-@app.route('/keyboard')
-def Keyboard():
-    send_data = {
-        "type": "buttons",
-        "buttons": ["시작하기", "도움말"]
-    }
-
-    return jsonify(send_data)
-
+# @app.route('/keyboard')
+# def Keyboard():
+#     send_data = {
+#         "type": "buttons",
+#         "buttons": ["시작하기", "도움말"]
+#     }
+#
+#     return jsonify(send_data)
+#
 
 @app.route('/message', methods=['POST'])
 def Message():
@@ -110,7 +110,8 @@ def Message():
         if content == u"054":
             send_data = {
                 "message": {
-                    "text": "* 첫차 시간 : " + bus_info[0][0] + "\n* 막차 시간 : " + bus_info[0][1]+"\n\n"
+                    "text": "[고양동시장] -> [필리핀 참전비] \n* 첫차 시간 : " + bus_info[0][0] + "\n* 막차 시간 : " + bus_info[0][1]+"\n"
+                            "[필리핀 참전비] -> [고양동 시장] \n* 첫차 시간 : " + bus_info[3][0] + "\n* 막차 시간 : " + bus_info[3][1]+"\n"
                             "[고양동시장] -> [필리핀 참전비] :\n{0}{1}{2}".format(TimeChk(bus_info[0][2]), LocationChk(bus_info[0][6]), Iswaiting(bus_info[0][4]))+"\n\n\n"
                             "[중부대학교] -> [필리핀 참전비] :\n{0}{1}{2}".format(TimeChk(bus_info[1][2]), LocationChk(bus_info[1][6]), Iswaiting(bus_info[1][4]))+"\n\n\n"
                             "[중부대학교] -> [고양동 시장] :\n{0}{1}{2}".format(TimeChk(bus_info[2][2]), LocationChk(bus_info[2][6]), Iswaiting(bus_info[2][4]))+"\n\n\n"
@@ -120,7 +121,8 @@ def Message():
         else:
             send_data = {
                 "message": {
-                    "text": "* 첫차 시간 : " + bus_info[0][0] + "\n* 막차 시간 : " + bus_info[0][1] + "\n\n" +
+                    "text": "[고양동시장] -> [필리핀 참전비] \n* 첫차 시간 : " + bus_info[0][0] + "\n* 막차 시간 : " + bus_info[0][1]+"\n"
+                            "[필리핀 참전비] -> [고양동 시장] \n* 첫차 시간 : " + bus_info[3][0] + "\n* 막차 시간 : " + bus_info[3][1]+"\n"
                             "[고양동시장] -> [필리핀 참전비] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[0][3]), LocationChk(bus_info[0][7]), Iswaiting(bus_info[0][5]))+"\n\n\n"
                             "[중부대학교] -> [필리핀 참전비] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[1][3]), LocationChk(bus_info[1][7]), Iswaiting(bus_info[1][5]))+"\n\n\n"
                             "[중부대학교] -> [고양동 시장] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[2][3]), LocationChk(bus_info[2][7]), Iswaiting(bus_info[2][5]))+"\n\n\n"
