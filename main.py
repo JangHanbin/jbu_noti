@@ -21,7 +21,7 @@ def Iswaiting(delay_info):
     return " 회차지 대기중 " if delay_info is "N" else ""
 
 def MakeFoodList(food_menus, day):
-    return "[{0} 메뉴] ".format(food_menus[0][day]) + "\n" + "<한식>\n" + food_menus[1]["korean"][day] + "\n" + "<일품1>\n" + food_menus[1]["food1"][day] + "\n" + "<일품2>\n" + food_menus[1]["food2"][day] + "\n"
+    return "[{0} 메뉴] ".format(food_menus[0][day]) + "\n" + "<한식>\n" + food_menus[1]["korean"][day] + "\n" + "<일품1>\n" + food_menus[1]["food1"][day] + "\n" + "<일품2>\n" + food_menus[1]["food2"][day] + "\n\n\n"
 @app.route('/keyboard')
 def Keyboard():
     send_data = {
