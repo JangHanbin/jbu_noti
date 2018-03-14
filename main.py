@@ -167,7 +167,7 @@ def Message():
             }
         }
 
-    return jsonify({send_data, button_data})
+    return jsonify(button_data)
 
 
 # bus_Info["first_time", 0
