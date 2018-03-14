@@ -29,7 +29,7 @@ def MakeFoodList(food_menus, day):
 button_data = {
     "keyboard": {
         "type": "buttons",
-        "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 * ", "* 033 *", "* 033-2 *", "* 054 *", "* 054-2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
+        "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 *", "* 033 *", "* 033-2 *", "* 054 *", "* 054-2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
     }
 }
 
@@ -53,14 +53,13 @@ def Message():
             "message": {
                 "text": "원하는 키워드를 보내주세요!\n"
                         "현재 PC카톡에서의 동작은 구현되지 않았습니다.\n"
-                        "* 키워드는 \"도움말\"을 입력하세요 *"
             }
         }
 
     elif content == u"도움말":
         send_data = {
             "message": {
-                "text": "아래의 text를 입력하시면 그에 맞는 답변이 전송됩니다!\n"
+                "text": "아래의 text를 보내주시 그에 맞는 답변이 전송됩니다!\n"
                         "'-2' 는 다음 배차에 대한 답변을 드립니다!\n"
                         "* 셔틀버스 시간표\n"
                         "* 033\n"
@@ -72,7 +71,7 @@ def Message():
 
             }
         }
-    elif (content == u"* 셔틀버스 시간표 *") or (content == u"셔틀 시간") or (content == u"셔틀") or (content == u"셔틀 시간표"):
+    elif content == u"* 셔틀버스 시간표 *":
         send_data = {
             "message": {
                 "text": "요기다가 "
@@ -89,13 +88,13 @@ def Message():
                         "노선에 대한정보까지 입력받아 출력할 것"
             }
         }
-    elif content == u"033" or (content == u"033-2"):
+    elif content == u"* 033 *" or (content == u"* 033-2 *"):
         bus_info = [busAPI.getBusArrivalTime("univ_front"),
                     busAPI.getBusArrivalTime("dormitory"),
                     busAPI.getBusArrivalTime("goyang-dong_market_033"),
                     busAPI.getBusArrivalTime("goyang-dong_market_to_subway")
                     ]
-        if content == u"033":
+        if content == u"* 033 *":
             send_data = {
                 "message": {
                     "text": "[중부대학교] -> [원흥역] \n* 첫차 시간 : " + bus_info[3][0] + "\n* 막차 시간 : " + bus_info[3][1] + "\n" +
@@ -117,13 +116,13 @@ def Message():
                             "[고양동 시장] -> [원흥역] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5])) + "\n\n\n"
                 }
             }
-    elif content == u"054" or (content == u"054-2"):
+    elif content == u"* 054 *" or (content == u"* 054-2 *"):
         bus_info = [busAPI.getBusArrivalTime("goyang-dong_market_054"),
                     busAPI.getBusArrivalTime("univ_front_054"),
                     busAPI.getBusArrivalTime("univ_front_to_market"),
                     busAPI.getBusArrivalTime("gajang-dong_3-street")
                     ]
-        if content == u"054":
+        if content == u"* 054 *":
             send_data = {
                 "message": {
                     "text": "[고양동시장] -> [필리핀 참전비] \n* 첫차 시간 : " + bus_info[0][0] + "\n* 막차 시간 : " + bus_info[0][1] + "\n" +
@@ -145,7 +144,7 @@ def Message():
                             "[관산동 삼거리]-> [고양동 시장(중부대학교)] 2번째 :\n{0}{1}{2}".format(TimeChk(bus_info[3][3]), LocationChk(bus_info[3][7]), Iswaiting(bus_info[3][5])) + "\n\n\n"
                 }
             }
-    elif (content == u"학식 메뉴") or (content == u"학식"):
+    elif content == u"* 학식 메뉴 *":
         food_menus = crawler.food_crawling()
         send_data = {
             "message": {
@@ -153,7 +152,7 @@ def Message():
 
             }
         }
-    elif (content == u"건의 사항") or (content == u"건의") or (content == u"건의사항"):
+    elif content == u"* 건의 사항 *":
         send_data = {
             "message": {
                 "text": "Kakao Openchat URL : https://open.kakao.com/o/gFWkeII\n\n"
