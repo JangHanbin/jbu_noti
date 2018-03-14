@@ -26,7 +26,7 @@ def MakeFoodList(food_menus, day):
 
 button_data = {
     "type": "buttons",
-    "buttons": ["시작하기", "도움말" , "* 셔틀버스 시간표 * ", "* 033 *" ,"* 033-2 *", "* 054 *", "* 054-2 *",  "* 학식 메뉴 *", "* 건의 사항 *"]
+    "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 * ", "* 033 *", "* 033-2 *", "* 054 *", "* 054-2 *",  "* 학식 메뉴 *", "* 건의 사항 *"]
 }
 @app.route('/keyboard')
 def Keyboard():
@@ -166,8 +166,8 @@ def Message():
                         "\"도움말\"을 입력하여 가능한 도움말을 찾아보세요! "
             }
         }
-
-    return jsonify({send_data,button_data})
+    test = {send_data, button_data}
+    return jsonify(test)
 
 
 # bus_Info["first_time", 0
