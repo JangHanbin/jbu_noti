@@ -31,15 +31,20 @@ def shuttle_crawling():
 
     row = list()
     time_ = list()
+    time_tables = list()
     rowspan_corrector = list()
+    rowspan_correctors =list()
     rowspan_list = list()
 
     for table in tables:
         routes = table.find_all('tr')
+
         for route in routes:  # Parsing tables
             values = route.find_all('td')
+
             for rowspan_idx, value in enumerate(values):  # Parsing rows
                 row.append(value.text.strip())  # add row
+
                 if None not in value.get_attribute_list('rowspan'):  # if there is rowspan value
                     if '고양캠⇒충청캠' in value.text.strip() or '충청캠⇒고양캠' in value.text.strip():  # correct rowspan value set error! why jbu_univ web page that value set to 14??
                         rowspan_list.append([rowspan_idx, 1, value.text.strip()])  # add rowspan information
@@ -49,45 +54,58 @@ def shuttle_crawling():
             # each table_row Parsed
             time_.append(row.copy())  # each row information save at list
             row.clear()  # clear list for save next row information
+
             if len(rowspan_list) > 0:  # if there is need to correct rowspan values
                 rowspan_corrector.append(rowspan_list.copy())  # add to list
                 rowspan_list.clear()  # clear list for next rowspan information
+
             else:
                 rowspan_corrector.append("")  # add just trash value for match index
+
         # each table parsed
-
-
-
-
+        time_tables.append(time_.copy())
+        time_.clear()
+        rowspan_correctors.append(rowspan_corrector.copy())
+        rowspan_corrector.clear()
 
     #   column_rowspan[rowspan_idx, num_of_rowspan, text]
     index_corrector = list()
 
     # correct(shift) index value & insert rowspan value as an order
-    for idx, table in enumerate(time_):
-        for corrector in rowspan_corrector[idx]:  # if there is need to correct time table
-            corrected_index = corrector[0]
+    for idx, time_table in enumerate(time_tables):
+        # idx is table number
+        # ex) [[table1],[table2],[table3]]
+        for c_idx, correctors in enumerate(rowspan_correctors[idx]): # if there is need to correct time table
+            # correctors is list of need to correct rowspan
+            # ex) [[correct_list1],[correct_list2]]
+            for correct_list in correctors:
+                # correct_list is each list of need to correct
+                # ex) [rowspan_idx, num_of_rowspan, text]
+                corrected_index=correct_list[0]
+                # check if need to correct insert index
+                for index_correct in index_corrector:
+                    # if same table num and belong to range & need to shift
+                    if (idx == index_correct[0]) and (index_correct[1] < c_idx) and (index_correct[2] > c_idx) and (corrected_index >= index_correct[3]):
+                        corrected_index += 1
 
-            # check if need to correct insert index
-            for index_correct in index_corrector:
-                if (index_correct[0] < idx) and (index_correct[1] > idx) and (corrected_index >= index_correct[2]):
-                    # if index belong to range & need to shift
-                    corrected_index += 1
+                # index_corrector[table_num, range_of_start,range_of_end,corrected_idx]
+                index_corrector.append([idx,c_idx, int(correct_list[1]) + c_idx, corrected_index])  # append correct info to correct index
+                iterator = c_idx + 1  # To avoid first rowspan value, because already set value in first rowspan
+                span_idx = c_idx + int(correct_list[1])  # From index of row to +num of rowspan
 
-            # index_corrector[range_of_start,range_of_end,corrected_idx]
-            index_corrector.append([idx, int(corrector[1]) + idx, corrected_index])  # append correct info to correct index
+                # insert rowspan value into row
+                while iterator < span_idx:
+                    time_table[iterator].insert(corrected_index, correct_list[2])
+                    iterator += 1
 
-            iterator = idx + 1  # To avoid first rowspan value, because already set value in first rowspan
-            span_idx = idx + int(corrector[1])  # From index of row to +num of rowspan
+    for idx, time_table in enumerate(time_tables):
+        print(table_column[idx])
+        for time in time_table:
+            print(time)
 
-            while iterator < span_idx:
-                time_[iterator].insert(corrected_index, corrector[2])
-                iterator += 1
+        print('\n\n\n\n\n\n\n\n\n')
 
-    # Caution! This code will modify something safe. Because table can modify!
-    # Will modify list insert by each table. ex -> list[[table1], [table2], [table3]]
-    # current list data -> list[row1, row2, row3 ...]
-    
+
 
 def food_crawling():
     url = "http://www.joongbu.ac.kr/food/sub04_06_03/3.do"
