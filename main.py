@@ -18,7 +18,7 @@ def LocationChk(location):
 
 
 def Iswaiting(delay_info):
-    return " 회차지 대기중 " if delay_info is "N" else ""
+    return " 회차지 대기중 " if delay_info is "Y" else ""
 
 
 def MakeFoodList(food_menus, day):

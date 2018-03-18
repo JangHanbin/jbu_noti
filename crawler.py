@@ -12,45 +12,63 @@ def shuttle_crawling():
     soup = BeautifulSoup(html, 'html.parser')  # parsing html(response html code) using html.parser
 
     routes = soup.select(
-        '#content > table > tbody > tr'  # parsing this selector
+        '#content > table th'  # parsing this selector
+    )
+    table_column = list()
+    column = list()
+    for route in routes:
+        # print(route.text.lstrip())
+        column.append(route.text.strip())
+
+        if 't_end' in route.get_attribute_list('class'):  # if end of the table column
+            table_column.append(column.copy())  # need to value copy. default is address copy.
+            column.clear()
+
+
+    routes = soup.select(
+        ' #content > table > tbody > tr '
     )
 
-    for route in routes:
-        route_str = route.text.split('\n')  # return list
-        print(route_str)
-        pivot = -1
-        for i, line in enumerate(route_str):  # traverse list this routine must be has ':' in list
-            if ':' in line and pivot == -1:
-                pivot = i  # init pivot to i for find next seq values
-                departure_time_index = route_str.index(line)  # save line(string) index
-                departure_time = route_str[departure_time_index]  # save
-                if route_str[departure_time_index - 1].isalpha():  # if there is route information in list
-                    route_informaiton = route_str[
-                        departure_time_index - 1]  # save bus route for using there is no route information in list
+    row = list()
+    time_table = list()
+    rowspan_corrector = list()
+    rowspan_list = list()
 
-                # shuttlebus_info=[route_informaiton,departure_time,]
-                # print(route_str[departure_time_index+1])
-                # print(route_str[departure_time_index+1].isalpha())
-                # print(route_str[departure_time_index+1].isalnum())
-                # print(route_str[departure_time_index+1].isnumeric())
-                # print(route_str[departure_time_index+1].isdigit())
-                # print(route_str[departure_time_index+1])
+    for rowspan_idx , route in enumerate(routes):  # Parsing tables
+        values = route.find_all('td')
+        for value in values: # Parsing rows
+            row.append(value.text.strip())   # add row
+            if None not in value.get_attribute_list('rowspan'):     # if there is rowspan value
+                rowspan_list.append([rowspan_idx, value.get_attribute_list('rowspan')[0], value.text.strip()])      # add rowspan information
 
-            # print("Line : " + line)
-            # print(pivot > -1)
-            # print(':' not in line)
-            # print(line.isalpha())
-            # print("\n\n")
-            if pivot > -1 and (':' not in line) and '' is not line:  # if pivot initialized
-                location = line
-                break
+        # each table Parsed
+        time_table.append(row.copy())   # each row information save at list
+        row.clear()     # clear list for save next row information
+        if len(rowspan_list) > 0:   # if there is need to correct rowspan values
+            rowspan_corrector.append(rowspan_list.copy())    # add to list
+            rowspan_list.clear()    # clear list for next rowspan information
+        else:
+            rowspan_corrector.append("")  # add just trash value for match index
 
-        print("노선명 : " + route_informaiton)
-        print("탑승지 or 하차지 :  " + location)
-        print("출발 시각 or 도착 시각 : " + departure_time)
-        # print("가격  : " + price)
-        # shuttlebus_info=[route_informaiton,departure_time,]
-        print("\n\n")
+    #   column_rowspan[rowspan_idx, num_of_rowspan, text]
+    for idx , table in enumerate(time_table):
+
+        if len(rowspan_corrector[idx]) == 1:  # if there is just rowspan in column
+
+            iterator = int(rowspan_corrector[idx][0][0])+1  # To avoid first rowspan value, because already set value in first rowspan
+            span_idx = int(rowspan_corrector[idx][0][1])
+            # print("Iterator : " + str(iterator) + " Span_idx : " + str(span_idx))
+            while iterator < span_idx:
+                # print(time_table[iterator])
+                iterator+=1
+
+            # print(rowspan_corrector[idx])
+            # print(table)
+        elif len(rowspan_corrector[idx]) > 1:  # if there is many rowspan in column
+            print("")
+
+
+
 
 
 def food_crawling():
@@ -89,16 +107,16 @@ def food_crawling():
         if find_section:
             if "일품2" in food.text:
                 food2 = True
-                continue # skip this text
+                continue  # skip this text
             elif "일품1" in food.text:
                 food1 = True
-                continue # skip this text
+                continue  # skip this text
 
             if not food1 and not food2:  # if korean food
                 for newline in food.select("br"):  # replace <br> to space
                     newline.replace_with(" ")
                 menus["korean"].append(food.text)
-            elif food1 and food2: # if food2
+            elif food1 and food2:  # if food2
                 for newline in food.select("br"):  # replace <br> to space
                     newline.replace_with(" ")
                 menus["food2"].append(food.text)
@@ -111,10 +129,9 @@ def food_crawling():
     return [date_info, menus]
 
 
-
 # need to save route information & derparture time, price
 
 if __name__ == '__main__':
-    food_crawling()
+    shuttle_crawling()
 # else:
 #     print(__name__)
