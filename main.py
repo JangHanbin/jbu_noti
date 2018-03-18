@@ -36,11 +36,7 @@ button_data = {
 
 @app.route('/keyboard')
 def Keyboard():
-    send_data = {
-        "type": "buttons",
-        "buttons": ["시작하기", "도움말"]
-    }
-    return jsonify(send_data)
+    return jsonify(button_data)
 
 
 @app.route('/message', methods=['POST'])
@@ -52,7 +48,6 @@ def Message():
         send_data = {
             "message": {
                 "text": "원하는 키워드를 보내주세요!\n"
-                        "현재 PC카톡에서의 동작은 구현되지 않았습니다.\n"
             }
         }
 
