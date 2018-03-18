@@ -12,12 +12,12 @@ def shuttle_crawling():
     soup = BeautifulSoup(html, 'html.parser')  # parsing html(response html code) using html.parser
 
     routes = soup.select(
-        '#content > table th'  # parsing this selector
+        '#content > table > thead > tr > th'  # parsing this selector
     )
     table_column = list()
     column = list()
+
     for route in routes:
-        # print(route.text.lstrip())
         column.append(route.text.strip())
 
         if 't_end' in route.get_attribute_list('class'):  # if end of the table column
@@ -25,51 +25,69 @@ def shuttle_crawling():
             column.clear()
 
 
-    routes = soup.select(
-        ' #content > table > tbody > tr '
+    tables = soup.select(
+        ' #content > table > tbody'
     )
 
     row = list()
-    time_table = list()
+    time_ = list()
     rowspan_corrector = list()
     rowspan_list = list()
 
-    for rowspan_idx , route in enumerate(routes):  # Parsing tables
-        values = route.find_all('td')
-        for value in values: # Parsing rows
-            row.append(value.text.strip())   # add row
-            if None not in value.get_attribute_list('rowspan'):     # if there is rowspan value
-                rowspan_list.append([rowspan_idx, value.get_attribute_list('rowspan')[0], value.text.strip()])      # add rowspan information
+    for table in tables:
+        routes = table.find_all('tr')
+        for route in routes:  # Parsing tables
+            values = route.find_all('td')
+            for rowspan_idx, value in enumerate(values):  # Parsing rows
+                row.append(value.text.strip())  # add row
+                if None not in value.get_attribute_list('rowspan'):  # if there is rowspan value
+                    if '고양캠⇒충청캠' in value.text.strip() or '충청캠⇒고양캠' in value.text.strip():  # correct rowspan value set error! why jbu_univ web page that value set to 14??
+                        rowspan_list.append([rowspan_idx, 1, value.text.strip()])  # add rowspan information
+                    else:
+                        rowspan_list.append([rowspan_idx, value.get_attribute_list('rowspan')[0], value.text.strip()])  # add rowspan information
 
-        # each table Parsed
-        time_table.append(row.copy())   # each row information save at list
-        row.clear()     # clear list for save next row information
-        if len(rowspan_list) > 0:   # if there is need to correct rowspan values
-            rowspan_corrector.append(rowspan_list.copy())    # add to list
-            rowspan_list.clear()    # clear list for next rowspan information
-        else:
-            rowspan_corrector.append("")  # add just trash value for match index
+            # each table_row Parsed
+            time_.append(row.copy())  # each row information save at list
+            row.clear()  # clear list for save next row information
+            if len(rowspan_list) > 0:  # if there is need to correct rowspan values
+                rowspan_corrector.append(rowspan_list.copy())  # add to list
+                rowspan_list.clear()  # clear list for next rowspan information
+            else:
+                rowspan_corrector.append("")  # add just trash value for match index
+        # each table parsed
+
+
+
+
 
     #   column_rowspan[rowspan_idx, num_of_rowspan, text]
-    for idx , table in enumerate(time_table):
+    index_corrector = list()
 
-        if len(rowspan_corrector[idx]) == 1:  # if there is just rowspan in column
+    # correct(shift) index value & insert rowspan value as an order
+    for idx, table in enumerate(time_):
+        for corrector in rowspan_corrector[idx]:  # if there is need to correct time table
+            corrected_index = corrector[0]
 
-            iterator = int(rowspan_corrector[idx][0][0])+1  # To avoid first rowspan value, because already set value in first rowspan
-            span_idx = int(rowspan_corrector[idx][0][1])
-            # print("Iterator : " + str(iterator) + " Span_idx : " + str(span_idx))
+            # check if need to correct insert index
+            for index_correct in index_corrector:
+                if (index_correct[0] < idx) and (index_correct[1] > idx) and (corrected_index >= index_correct[2]):
+                    # if index belong to range & need to shift
+                    corrected_index += 1
+
+            # index_corrector[range_of_start,range_of_end,corrected_idx]
+            index_corrector.append([idx, int(corrector[1]) + idx, corrected_index])  # append correct info to correct index
+
+            iterator = idx + 1  # To avoid first rowspan value, because already set value in first rowspan
+            span_idx = idx + int(corrector[1])  # From index of row to +num of rowspan
+
             while iterator < span_idx:
-                # print(time_table[iterator])
-                iterator+=1
+                time_[iterator].insert(corrected_index, corrector[2])
+                iterator += 1
 
-            # print(rowspan_corrector[idx])
-            # print(table)
-        elif len(rowspan_corrector[idx]) > 1:  # if there is many rowspan in column
-            print("")
-
-
-
-
+    # Caution! This code will modify something safe. Because table can modify!
+    # Will modify list insert by each table. ex -> list[[table1], [table2], [table3]]
+    # current list data -> list[row1, row2, row3 ...]
+    
 
 def food_crawling():
     url = "http://www.joongbu.ac.kr/food/sub04_06_03/3.do"

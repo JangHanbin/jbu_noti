@@ -150,8 +150,7 @@ def Message():
     elif content == u"* 건의 사항 *":
         send_data = {
             "message": {
-                "text": "Kakao Openchat URL : https://open.kakao.com/o/gFWkeII\n\n"
-                        "Blog URL : http://dork94.tistory.com\n\n"
+                "text": "Blog URL : http://dork94.tistory.com\n\n"
                         "Kakao ID : dorks"
 
             }
