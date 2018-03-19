@@ -3,7 +3,7 @@
 from flask import Flask, request, jsonify
 import busAPI
 import crawler
-import datetime
+from crawler import datetime
 
 # do = True                               # first must be do parsing
 # day = datetime.datetime.now().day       # first init when process do
