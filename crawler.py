@@ -18,6 +18,7 @@ def ParsingCheaker(checker):
 
 
 def shuttle_crawling():
+    print("Shuttle_crawling Called()")
     url = "http://www.joongbu.ac.kr/home/sub01_09_03.do"  # JBU Univ Shuttle bus information web page
 
     res = requests.get(url)
@@ -118,6 +119,7 @@ def shuttle_crawling():
 
 
 def food_crawling():
+    print("food_crawling Valled")
     url = "http://www.joongbu.ac.kr/food/sub04_06_03/3.do"
 
     res = requests.get(url)
