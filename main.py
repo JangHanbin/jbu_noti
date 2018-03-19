@@ -9,7 +9,7 @@ from crawler import datetime
 # day = datetime.datetime.now().day       # first init when process do
 # checker[do, day]
 cheacker = [True, datetime.datetime.now().day-1]
-shuttle_tables=list()                     #
+# shuttle_tables=list()                     #
 
 app = Flask(__name__)
 
@@ -144,8 +144,8 @@ def Keyboard():
 def Message():
     received_data = request.get_json()
     content = received_data['content']
-    global shuttle_tables   # use global var to parsing day by day
-    global cheacker
+    # global shuttle_tables   # use global var to parsing day by day
+    # global cheacker
 
     if content == u"시작하기":
         send_data = {
@@ -186,7 +186,7 @@ def Message():
             }
     }
     elif content == u"* 셔틀버스 - 삼송 *":
-        if crawler.ParsingCheaker(crawler):
+        if crawler.ParsingCheaker(cheacker):
             shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
@@ -194,7 +194,7 @@ def Message():
             }
         }
     elif content == u"* 셔틀버스 - 백석, 화정 *":
-        if crawler.ParsingCheaker(crawler):
+        if crawler.ParsingCheaker(cheacker):
             shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
