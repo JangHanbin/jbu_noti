@@ -25,81 +25,83 @@ def MakeFoodList(food_menus, day):
 
 
 def MakeShuttleList(shuttle_tables, table_num):
-    #need to add table num,
     bus_info = str()
 
-    column_ = 0
+    column_value = 0
     row_value = 1
+
     if table_num==0:
-        for index, shuttle_table in enumerate(shuttle_tables[column_]):
-            for val in shuttle_tables[row_value][index]:
+        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
+            for row in shuttle_tables[row_value][index]:
                 bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
                     shuttle_table[0],
-                    val[0],
+                    row[0],
                     shuttle_table[1],
-                    val[1],
+                    row[1],
                     shuttle_table[3],
-                    val[3],
+                    row[3],
                     shuttle_table[2],
-                    val[2],
+                    row[2],
                     shuttle_table[4],
-                    val[4],
-                    val[5],
+                    row[4],
+                    row[5],
                 )
             break
     elif table_num==1:
-        for index, shuttle_table in enumerate(shuttle_tables[column_]):
-            for val in shuttle_tables[row_value][index]:
+        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
+            for row in shuttle_tables[row_value][index]:
                 bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
                     shuttle_table[0],
-                    val[0],
+                    row[0],
                     shuttle_table[1],
-                    val[1],
+                    row[1],
                     shuttle_table[3],
-                    val[3],
+                    row[3],
                     shuttle_table[2],
-                    val[2],
+                    row[2],
                     shuttle_table[4],
-                    val[4],
-                    val[5],
+                    row[4],
+                    row[5],
                 )
             break
     elif table_num == 2:
-        for index, shuttle_table in enumerate(shuttle_tables[column_]):
-            for val in shuttle_tables[row_value][index]:
+        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
+            for row in shuttle_tables[row_value][index]:
                 bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
                     shuttle_table[0],
-                    val[0],
+                    row[0],
                     shuttle_table[1],
-                    val[1],
+                    row[1],
                     shuttle_table[3],
-                    val[3],
+                    row[3],
                     shuttle_table[2],
-                    val[2],
+                    row[2],
                     shuttle_table[4],
-                    val[4],
-                    val[5],
+                    row[4],
+                    row[5],
                 )
             break
     elif table_num == 3:
-        for index, shuttle_table in enumerate(shuttle_tables[column_]):
-            for val in shuttle_tables[row_value][index]:
+        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
+            for row in shuttle_tables[row_value][index]:
                 bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
                     shuttle_table[0],
-                    val[0],
+                    row[0],
                     shuttle_table[1],
-                    val[1],
+                    row[1],
                     shuttle_table[3],
-                    val[3],
+                    row[3],
                     shuttle_table[2],
-                    val[2],
+                    row[2],
                     shuttle_table[4],
-                    val[4],
-                    val[5],
+                    row[4],
+                    row[5],
                 )
             break
 
     return bus_info
+
+
 button_data = {
     "keyboard": {
         "type": "buttons",
@@ -147,7 +149,6 @@ def Message():
     elif content == u"* 셔틀버스 시간표 *":
 
         shuttle_table = crawler.shuttle_crawling()
-        MakeShuttleList(shuttle_table)
         send_data = {
             "message": {
                 "text": MakeShuttleList(shuttle_table, 0)

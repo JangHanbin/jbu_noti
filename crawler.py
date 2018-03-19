@@ -99,9 +99,7 @@ def shuttle_crawling():
                     time_table[iterator].insert(corrected_index, correct_list[2])
                     iterator += 1
 
-
     return [table_column, time_tables]
-
 
 
 def food_crawling():
