@@ -160,7 +160,7 @@ def Message():
         shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
-                "text": MakeShuttleList(shuttle_tables, 0) + MakeShuttleList(shuttle_tables, 1) # + MakeShuttleList(shuttle_tables, 2) +  MakeShuttleList(shuttle_tables, 3)
+                "text": MakeShuttleList(shuttle_tables, 0) + MakeShuttleList(shuttle_tables, 1) + MakeShuttleList(shuttle_tables, 2) # +  MakeShuttleList(shuttle_tables, 3)
             }
         }
     elif content == u"* 033 *" or (content == u"* 033 -2 *"):
