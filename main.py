@@ -46,7 +46,11 @@ button_data = {
 
 @app.route('/keyboard')
 def Keyboard():
-    return jsonify(button_data)
+    send_data = {
+        "type": "buttons",
+        "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 *", "* 033 *", "* 033 -2 *", "* 054 *", "* 054 -2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
+    }
+    return jsonify(send_data)
 
 
 @app.route('/message', methods=['POST'])
