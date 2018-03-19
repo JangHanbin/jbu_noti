@@ -45,7 +45,7 @@ def MakeShuttleList(shuttle_tables, table_num):
                 row[2],
                 shuttle_table[4],  # 탑승 금액
                 row[4],
-                row[5]  # 비고
+                row[5]             # 비고
             )
     elif table_num == 1:
         shuttle_table = shuttle_tables[column_value][table_num]
@@ -64,12 +64,11 @@ def MakeShuttleList(shuttle_tables, table_num):
                 row[4],
                 shuttle_table[5],  # 탑승 금액
                 row[5],
-                row[6]  # 비고
+                row[6]             # 비고
             )
     elif table_num == 2:
         shuttle_table = shuttle_tables[column_value][table_num]
         for row in shuttle_tables[row_value][table_num]:
-            print(row)
             # ['', '원흥역', '삼송역', '캠퍼스 하차', '', '캠퍼스 승차', '고양동 사거리', '비고'
             bus_info += "[ {0} ]\n[ {1} : {2} ], [ {3} : {4} ], [ {5} : {6} ]\n[ {7} ]\n[ {8} : {9} ], [ {10} : {11} ], [ {12} : {13} ]\n\n\n".format(
                 "등교",             # 등교
@@ -90,22 +89,20 @@ def MakeShuttleList(shuttle_tables, table_num):
     elif table_num == 3:
         shuttle_table = shuttle_tables[column_value][table_num]
         for row in shuttle_tables[row_value][table_num]:
-            print(row)
             # ['', '백석역', '화정역', '고양캠 하차', '', '고양캠 승차', '비고']]
-            bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ][ {6} : {7} ]\n[ {8} : {9} ]\n[ {10} : {11} {12} ]\n\n\n".format(
-                shuttle_table[0],  # 지역
+            bus_info += "[ {0} ]\n[ {1} : {2} ], [ {3} : {4} ], [ {5} : {6} ]\n[ {7} ]\n[ {8} : {9} ], [ {10} : {11} ]\n\n\n".format(
+                "등교",             # 등교
+                shuttle_table[1],  # 역
                 row[0],
-                shuttle_table[1],  # 노선명
+                shuttle_table[2],  # 역 2
                 row[1],
-                shuttle_table[2],  # 출발시간
+                shuttle_table[3],  # 하차 시간
                 row[2],
-                shuttle_table[3],  # 도착시간
+                "하교",             # 하교
+                shuttle_table[5],  # 승차
                 row[3],
-                shuttle_table[4],  # 도착 승차장
-                row[4],
-                shuttle_table[5],  # 탑승 금액
-                row[5],
-                row[6]  # 비고
+                shuttle_table[6],  # 비고
+                "정보 없음 " if row[4] is "" else row[4]
             )
 
     return bus_info
@@ -114,7 +111,8 @@ def MakeShuttleList(shuttle_tables, table_num):
 button_data = {
     "keyboard": {
         "type": "buttons",
-        "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 *", "* 033 *", "* 033 -2 *", "* 054 *", "* 054 -2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
+        "buttons": ["시작하기", "도움말", "* 셔틀버스(등교) - 경기/서울 *", "* 셔틀버스(하교) - 경기/서울 *", "* 셔틀버스 - 삼송 *",
+                    "* 셔틀버스 - 백석, 화정 *", "* 033 *", "* 033 -2 *", "* 054 *", "* 054 -2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
     }
 }
 
@@ -123,7 +121,8 @@ button_data = {
 def Keyboard():
     send_data = {
         "type": "buttons",
-        "buttons": ["시작하기", "도움말", "* 셔틀버스 시간표 *", "* 033 *", "* 033 -2 *", "* 054 *", "* 054 -2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
+        "buttons": ["시작하기", "도움말", "* 셔틀버스(등교) - 경기/서울 *", "* 셔틀버스(하교) - 경기/서울 *", "* 셔틀버스 - 삼송 *",
+                    "* 셔틀버스 - 백석, 화정 *", "* 033 *", "* 033 -2 *", "* 054 *", "* 054 -2 *", "* 학식 메뉴 *", "* 건의 사항 *"]
     }
     return jsonify(send_data)
 
@@ -155,12 +154,36 @@ def Message():
 
             }
         }
-    elif content == u"* 셔틀버스 시간표 *":
+    elif content == u"* 셔틀버스(등교) - 경기/서울 *":
 
         shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
-                "text": MakeShuttleList(shuttle_tables, 0) + MakeShuttleList(shuttle_tables, 1) + MakeShuttleList(shuttle_tables, 2) # +  MakeShuttleList(shuttle_tables, 3)
+                "text": MakeShuttleList(shuttle_tables, 0)
+            }
+        }
+    elif content == u"* 셔틀버스(하교) - 경기/서울 *":
+
+        shuttle_tables = crawler.shuttle_crawling()
+        send_data = {
+            "message": {
+                "text": MakeShuttleList(shuttle_tables, 1)
+            }
+    }
+    elif content == u"* 셔틀버스 - 삼송 *":
+
+        shuttle_tables = crawler.shuttle_crawling()
+        send_data = {
+            "message": {
+                "text": MakeShuttleList(shuttle_tables, 2)
+            }
+        }
+    elif content == u"* 셔틀버스 - 백석, 화정 *":
+
+        shuttle_tables = crawler.shuttle_crawling()
+        send_data = {
+            "message": {
+                "text": MakeShuttleList(shuttle_tables, 3)
             }
         }
     elif content == u"* 033 *" or (content == u"* 033 -2 *"):
