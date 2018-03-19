@@ -2,15 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 
-test = 0
-
 
 def ParsingCheaker(checker):
     do = 0   # checker index
     day = 1  # checker index
     global test
-    today = datetime.datetime.now().day + test
-    test += 1
+    today = datetime.datetime.now().day
     # Seems like Semaphore
     if today > checker[day]:                        # if day goes by(check if need to parsing)
         checker[do] = True                        # do Parsing
