@@ -30,10 +30,10 @@ def MakeShuttleList(shuttle_table):
         shuttle_table[0][0][0],
         shuttle_table[0][0][1],
         shuttle_table[0][0][3],
-        shuttle_table[1][0][3],
+        shuttle_table[1][0][0][3],
         shuttle_table[0][0][4],
-        shuttle_table[1][0][4],
-        shuttle_table[1][0][5]
+        shuttle_table[1][0][0][4],
+        shuttle_table[1][0][0][5]
     )
 
 button_data = {
