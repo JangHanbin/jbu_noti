@@ -68,17 +68,21 @@ def MakeShuttleList(shuttle_tables, table_num):
             )
     elif table_num == 2:
         shuttle_table = shuttle_tables[column_value][table_num]
+        bus_info1 = "[ 등교 ]\n"
+        bus_info2 = "[ 하교 ]\n"
         for row in shuttle_tables[row_value][table_num]:
             # ['', '원흥역', '삼송역', '캠퍼스 하차', '', '캠퍼스 승차', '고양동 사거리', '비고'
-            bus_info += "[ {0} ]\n[ {1} : {2} ][ {3} : {4} ]\n[ {5} : {6} ]\n\n[ {7} ]\n[ {8} : {9} ][ {10} : {11} ][ {12} : {13} ]\n\n\n".format(
-                "등교",             # 등교
+
+            bus_info1 += "[ {0} : {1} ][ {2} : {3} ]\n[ {4} : {5} ]\n\n".format(
                 shuttle_table[1],  # 역
                 row[0],
                 shuttle_table[2],  # 역 2
                 row[1],
                 shuttle_table[3],  # 하차 시간
-                row[2],
-                "하교",             # 하교
+                row[2]
+            )
+
+            bus_info2 += "[ {0} : {1} ][ {2} : {3} ]\n[ {4} : {5} ]\n\n".format(
                 shuttle_table[5],  # 승차
                 "정보 없음 " if row[3] is "" else row[3],
                 shuttle_table[6],  # 고양동 사거리
@@ -86,25 +90,28 @@ def MakeShuttleList(shuttle_tables, table_num):
                 shuttle_table[7],  # 비고
                 "정보 없음 " if row[5] is "" else row[5]
             )
+        bus_info = bus_info1 + "\n\n\n" + bus_info2
     elif table_num == 3:
         shuttle_table = shuttle_tables[column_value][table_num]
+        bus_info1 = "[ 등교 ]\n"
+        bus_info2 = "[ 하교 ]\n"
         for row in shuttle_tables[row_value][table_num]:
             # ['', '백석역', '화정역', '고양캠 하차', '', '고양캠 승차', '비고']]
-            bus_info += "[ {0} ]\n[ {1} : {2} ][ {3} : {4} ]\n[ {5} : {6} ]\n\n[ {7} ]\n[ {8} : {9} ][ {10} : {11} ]\n\n\n".format(
-                "등교",             # 등교
+            bus_info1 += "[ {0} : {1} ][ {2} : {3} ]\n[ {4} : {5} ]\n\n".format(
                 shuttle_table[1],  # 역
                 row[0],
                 shuttle_table[2],  # 역 2
                 row[1],
                 shuttle_table[3],  # 하차 시간
-                row[2],
-                "하교",             # 하교
+                row[2]
+            )
+            bus_info2 += "[ {0} : {1} ][ {2} : {3} ]\n\n".format(
                 shuttle_table[5],  # 승차
                 row[3],
                 shuttle_table[6],  # 비고
                 "정보 없음 " if row[4] is "" else row[4]
             )
-
+        bus_info = bus_info1 + "\n\n\n" + bus_info2
     return bus_info
 
 
