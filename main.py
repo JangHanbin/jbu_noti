@@ -8,7 +8,7 @@ from crawler import datetime
 # do = True                               # first must be do parsing
 # day = datetime.datetime.now().day       # first init when process do
 # checker[do, day]
-cheacker = [True, datetime.datetime.now().day]
+cheacker = [True, datetime.datetime.now().day-1]
 shuttle_tables=list()                     #
 
 app = Flask(__name__)
