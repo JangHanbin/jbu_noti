@@ -28,12 +28,14 @@ def MakeShuttleList(shuttle_table):
     #need to add table num,
     return "[ {0} ][ {1} ]\n[ {2} : {3} ] [ {4} : {5} ]\n [{6} : {7} {8}]\n\n\n".format(
         shuttle_table[0][0][0],
+        shuttle_table[1][0][0][0],
         shuttle_table[0][0][1],
+        shuttle_table[1][0][0][1],
         shuttle_table[0][0][3],
         shuttle_table[1][0][0][3],
         shuttle_table[0][0][4],
         shuttle_table[1][0][0][4],
-        shuttle_table[1][0][0][5]
+        shuttle_table[1][0][0][5],
     )
 
 button_data = {

@@ -97,6 +97,8 @@ def shuttle_crawling():
                     time_table[iterator].insert(corrected_index, correct_list[2])
                     iterator += 1
 
+    r_val = [time_table, time_tables]
+    print(r_val[1][0][0][5])
     return [table_column, time_tables]
 
 
