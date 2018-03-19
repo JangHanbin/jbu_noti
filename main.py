@@ -9,6 +9,8 @@ import datetime
 # day = datetime.datetime.now().day       # first init when process do
 # checker[do, day]
 cheacker = [True, datetime.datetime.now().day-1]    # day-1 means avoid first checking
+global shuttle_tables                     # need to sava pre data Beacause do parsing day by day
+
 app = Flask(__name__)
 
 
@@ -167,7 +169,7 @@ def Message():
         }
     elif content == u"* 셔틀버스(등교) - 경기/서울 *":
         if crawler.ParsingCheaker(cheacker):
-                shuttle_tables = crawler.shuttle_crawling()
+                global shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
                 "text": MakeShuttleList(shuttle_tables, 0)
