@@ -70,7 +70,7 @@ def MakeShuttleList(shuttle_tables, table_num):
         shuttle_table = shuttle_tables[column_value][table_num]
         for row in shuttle_tables[row_value][table_num]:
             # ['', '원흥역', '삼송역', '캠퍼스 하차', '', '캠퍼스 승차', '고양동 사거리', '비고'
-            bus_info += "[ {0} ]\n[ {1} : {2} ][ {3} : {4} ][ {5} : {6} ]\n[ {7} ]\n\n[ {8} : {9} ][ {10} : {11} ][ {12} : {13} ]\n\n\n".format(
+            bus_info += "[ {0} ]\n[ {1} : {2} ][ {3} : {4} ]\n[ {5} : {6} ]\n\n[ {7} ]\n[ {8} : {9} ][ {10} : {11} ][ {12} : {13} ]\n\n\n".format(
                 "등교",             # 등교
                 shuttle_table[1],  # 역
                 row[0],
@@ -90,7 +90,7 @@ def MakeShuttleList(shuttle_tables, table_num):
         shuttle_table = shuttle_tables[column_value][table_num]
         for row in shuttle_tables[row_value][table_num]:
             # ['', '백석역', '화정역', '고양캠 하차', '', '고양캠 승차', '비고']]
-            bus_info += "[ {0} ]\n[ {1} : {2} ][ {3} : {4} ][ {5} : {6} ]\n\n[ {7} ]\n[ {8} : {9} ][ {10} : {11} ]\n\n\n".format(
+            bus_info += "[ {0} ]\n[ {1} : {2} ][ {3} : {4} ]\n[ {5} : {6} ]\n\n[ {7} ]\n[ {8} : {9} ][ {10} : {11} ]\n\n\n".format(
                 "등교",             # 등교
                 shuttle_table[1],  # 역
                 row[0],
