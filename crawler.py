@@ -6,11 +6,12 @@ def ParsingCheaker(checker):
     do = 0   # checker index
     day = 1  # checker index
     today = datetime.datetime.now().day
-    print("Parsing checker Called!")
+    print("Today : " + str(today))
+    print("Checker's day : " + str(checker[day]))
     # Seems like Semaphore
     if today > checker[day]:                        # if day goes by(check if need to parsing)
         checker[do] = True                        # do Parsing
-        checker[day] = datetime.datetime.now().day  # set to day by today
+        checker[day] = datetime.datetime.now().day()  # set to day by today
     else:
         checker[do] = False
 

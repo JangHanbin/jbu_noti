@@ -3,7 +3,6 @@
 import json
 import requests
 
-
 def getBusArrivalTime(station_name):
     # Gyeong-gi Bus information API web page
     url = "http://www.gbis.go.kr/gbis2014/schBusAPI.action"
