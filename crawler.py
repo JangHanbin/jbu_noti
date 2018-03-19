@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-
+import main
 
 def shuttle_crawling():
     url = "http://www.joongbu.ac.kr/home/sub01_09_03.do"  # JBU Univ Shuttle bus information web page
@@ -98,6 +98,8 @@ def shuttle_crawling():
                 while iterator < span_idx:
                     time_table[iterator].insert(corrected_index, correct_list[2])
                     iterator += 1
+
+    print(main.MakeShuttleList([table_column, time_tables], 2))
 
     return [table_column, time_tables]
 

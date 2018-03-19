@@ -30,80 +30,83 @@ def MakeShuttleList(shuttle_tables, table_num):
     column_value = 0
     row_value = 1
 
-    if table_num==0:
-        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
-            for row in shuttle_tables[row_value][index]:
-                # ['지 역', '노선명', '출발 시간', '출발 승차장', '탑승금액', '비고']
-                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
-                    shuttle_table[0],   # 지역
-                    row[0],
-                    shuttle_table[1],   # 노선명
-                    row[1],
-                    shuttle_table[3],   # 출발 승차장
-                    row[3],
-                    shuttle_table[2],   # 출발 시간
-                    row[2],
-                    shuttle_table[4],   # 탑승 금액
-                    row[4],
-                    row[5]              # 비고
-                )
-            break
-    elif table_num==1:
-        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
-            for row in shuttle_tables[row_value][index]:
-                # ['지 역', '노선명', '출발 시간', '도착 시간', '도착 승차장', '탑승금액', '비고']
-                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ] [ {8} : {9} ]\n [ {10} : {11} {12} ]\n\n\n".format(
-                    shuttle_table[0],   # 지역
-                    row[0],
-                    shuttle_table[1],   # 노선명
-                    row[1],
-                    shuttle_table[2],   # 출발시간
-                    row[2],
-                    shuttle_table[3],   # 도착시간
-                    row[3],
-                    shuttle_table[4],   # 도착 승차장
-                    row[4],
-                    shuttle_table[5],   # 탑승 금액
-                    row[5],
-                    row[6]              # 비고
-                )
-            break
+    if table_num == 0:
+        shuttle_table = shuttle_tables[column_value][table_num]
+        for row in shuttle_tables[row_value][table_num]:
+            # ['지 역', '노선명', '출발 시간', '출발 승차장', '탑승금액', '비고']
+            bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
+                shuttle_table[0],  # 지역
+                row[0],
+                shuttle_table[1],  # 노선명
+                row[1],
+                shuttle_table[3],  # 출발 승차장
+                row[3],
+                shuttle_table[2],  # 출발 시간
+                row[2],
+                shuttle_table[4],  # 탑승 금액
+                row[4],
+                row[5]  # 비고
+            )
+    elif table_num == 1:
+        shuttle_table = shuttle_tables[column_value][table_num]
+        for row in shuttle_tables[row_value][table_num]:
+            # ['지 역', '노선명', '출발 시간', '도착 시간', '도착 승차장', '탑승금액', '비고']
+            bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ][ {6} : {7} ]\n[ {8} : {9} ]\n[ {10} : {11} {12} ]\n\n\n".format(
+                shuttle_table[0],  # 지역
+                row[0],
+                shuttle_table[1],  # 노선명
+                row[1],
+                shuttle_table[2],  # 출발시간
+                row[2],
+                shuttle_table[3],  # 도착시간
+                row[3],
+                shuttle_table[4],  # 도착 승차장
+                row[4],
+                shuttle_table[5],  # 탑승 금액
+                row[5],
+                row[6]  # 비고
+            )
     elif table_num == 2:
-        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
-            for row in shuttle_tables[row_value][index]:
-                # ['', '원흥역', '삼송역', '캠퍼스 하차', '', '캠퍼스 승차', '고양동 사거리', '비고']
-                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
-                    shuttle_table[0],
-                    row[0],
-                    shuttle_table[1],
-                    row[1],
-                    shuttle_table[3],
-                    row[3],
-                    shuttle_table[2],
-                    row[2],
-                    shuttle_table[4],
-                    row[4],
-                    row[5]
-                )
-            break
+        shuttle_table = shuttle_tables[column_value][table_num]
+        for row in shuttle_tables[row_value][table_num]:
+            print(row)
+            # ['', '원흥역', '삼송역', '캠퍼스 하차', '', '캠퍼스 승차', '고양동 사거리', '비고'
+            bus_info += "[ {0} ]\n[ {1} : {2} ], [ {3} : {4} ], [ {5} : {6} ]\n[ {7} ]\n[ {8} : {9} ], [ {10} : {11} ], [ {12} : {13} ]\n\n\n".format(
+                "등교",             # 등교
+                shuttle_table[1],  # 역
+                row[0],
+                shuttle_table[2],  # 역 2
+                row[1],
+                shuttle_table[3],  # 하차 시간
+                row[2],
+                "하교",             # 하교
+                shuttle_table[5],  # 승차
+                "정보 없음 " if row[3] is "" else row[3],
+                shuttle_table[6],  # 고양동 사거리
+                "정보 없음 " if row[4] is "" else row[4],
+                shuttle_table[7],  # 비고
+                "정보 없음 " if row[5] is "" else row[5]
+            )
     elif table_num == 3:
-        for index, shuttle_table in enumerate(shuttle_tables[column_value]):
-            for row in shuttle_tables[row_value][index]:
-                # ['', '백석역', '화정역', '고양캠 하차', '', '고양캠 승차', '비고']
-                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
-                    shuttle_table[0],
-                    row[0],
-                    shuttle_table[1],
-                    row[1],
-                    shuttle_table[3],
-                    row[3],
-                    shuttle_table[2],
-                    row[2],
-                    shuttle_table[4],
-                    row[4],
-                    row[5],
-                )
-            break
+        shuttle_table = shuttle_tables[column_value][table_num]
+        for row in shuttle_tables[row_value][table_num]:
+            print(row)
+            # ['', '백석역', '화정역', '고양캠 하차', '', '고양캠 승차', '비고']]
+            bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ][ {6} : {7} ]\n[ {8} : {9} ]\n[ {10} : {11} {12} ]\n\n\n".format(
+                shuttle_table[0],  # 지역
+                row[0],
+                shuttle_table[1],  # 노선명
+                row[1],
+                shuttle_table[2],  # 출발시간
+                row[2],
+                shuttle_table[3],  # 도착시간
+                row[3],
+                shuttle_table[4],  # 도착 승차장
+                row[4],
+                shuttle_table[5],  # 탑승 금액
+                row[5],
+                row[6]  # 비고
+            )
 
     return bus_info
 
