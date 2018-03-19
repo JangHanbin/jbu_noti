@@ -9,7 +9,6 @@ from crawler import datetime
 # day = datetime.datetime.now().day       # first init when process do
 # checker[do, day]
 cheacker = [True, datetime.datetime.now().day-1]    # day-1 means avoid first checking
-global shuttle_tables                     # need to sava pre data Beacause do parsing day by day
 
 app = Flask(__name__)
 
@@ -144,7 +143,7 @@ def Keyboard():
 def Message():
     received_data = request.get_json()
     content = received_data['content']
-
+    global shuttle_tables
     if content == u"시작하기":
         send_data = {
             "message": {
