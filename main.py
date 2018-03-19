@@ -24,20 +24,82 @@ def MakeFoodList(food_menus, day):
            food_menus[1]["food2"][day] + "\n\n\n"
 
 
-def MakeShuttleList(shuttle_table):
+def MakeShuttleList(shuttle_tables, table_num):
     #need to add table num,
-    return "[ {0} ][ {1} ]\n[ {2} : {3} ] [ {4} : {5} ]\n [{6} : {7} {8}]\n\n\n".format(
-        shuttle_table[0][0][0],
-        shuttle_table[1][0][0][0],
-        shuttle_table[0][0][1],
-        shuttle_table[1][0][0][1],
-        shuttle_table[0][0][3],
-        shuttle_table[1][0][0][3],
-        shuttle_table[0][0][4],
-        shuttle_table[1][0][0][4],
-        shuttle_table[1][0][0][5],
-    )
+    bus_info = str()
 
+    column_ = 0
+    row_value = 1
+    if table_num==0:
+        for index, shuttle_table in enumerate(shuttle_tables[column_]):
+            for val in shuttle_tables[row_value][index]:
+                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
+                    shuttle_table[0],
+                    val[0],
+                    shuttle_table[1],
+                    val[1],
+                    shuttle_table[3],
+                    val[3],
+                    shuttle_table[2],
+                    val[2],
+                    shuttle_table[4],
+                    val[4],
+                    val[5],
+                )
+            break
+    elif table_num==1:
+        for index, shuttle_table in enumerate(shuttle_tables[column_]):
+            for val in shuttle_tables[row_value][index]:
+                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
+                    shuttle_table[0],
+                    val[0],
+                    shuttle_table[1],
+                    val[1],
+                    shuttle_table[3],
+                    val[3],
+                    shuttle_table[2],
+                    val[2],
+                    shuttle_table[4],
+                    val[4],
+                    val[5],
+                )
+            break
+    elif table_num == 2:
+        for index, shuttle_table in enumerate(shuttle_tables[column_]):
+            for val in shuttle_tables[row_value][index]:
+                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
+                    shuttle_table[0],
+                    val[0],
+                    shuttle_table[1],
+                    val[1],
+                    shuttle_table[3],
+                    val[3],
+                    shuttle_table[2],
+                    val[2],
+                    shuttle_table[4],
+                    val[4],
+                    val[5],
+                )
+            break
+    elif table_num == 3:
+        for index, shuttle_table in enumerate(shuttle_tables[column_]):
+            for val in shuttle_tables[row_value][index]:
+                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
+                    shuttle_table[0],
+                    val[0],
+                    shuttle_table[1],
+                    val[1],
+                    shuttle_table[3],
+                    val[3],
+                    shuttle_table[2],
+                    val[2],
+                    shuttle_table[4],
+                    val[4],
+                    val[5],
+                )
+            break
+
+    return bus_info
 button_data = {
     "keyboard": {
         "type": "buttons",
@@ -88,7 +150,7 @@ def Message():
         MakeShuttleList(shuttle_table)
         send_data = {
             "message": {
-                "text": MakeShuttleList(shuttle_table)
+                "text": MakeShuttleList(shuttle_table, 0)
             }
         }
     elif content == u"* 033 *" or (content == u"* 033 -2 *"):

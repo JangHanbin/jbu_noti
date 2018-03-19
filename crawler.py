@@ -24,6 +24,7 @@ def shuttle_crawling():
             table_column.append(column.copy())  # need to value copy. default is address copy.
             column.clear()
 
+    # print(table_column)
     tables = soup.select(
         ' #content > table > tbody'
     )
@@ -67,6 +68,7 @@ def shuttle_crawling():
         rowspan_correctors.append(rowspan_corrector.copy())
         rowspan_corrector.clear()
 
+
     #   column_rowspan[rowspan_idx, num_of_rowspan, text]
     index_corrector = list()
 
@@ -97,8 +99,7 @@ def shuttle_crawling():
                     time_table[iterator].insert(corrected_index, correct_list[2])
                     iterator += 1
 
-    r_val = [time_table, time_tables]
-    print(r_val[1][0][0][5])
+
     return [table_column, time_tables]
 
 
