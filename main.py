@@ -33,40 +33,45 @@ def MakeShuttleList(shuttle_tables, table_num):
     if table_num==0:
         for index, shuttle_table in enumerate(shuttle_tables[column_value]):
             for row in shuttle_tables[row_value][index]:
+                # ['지 역', '노선명', '출발 시간', '출발 승차장', '탑승금액', '비고']
                 bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
-                    shuttle_table[0],
+                    shuttle_table[0],   # 지역
                     row[0],
-                    shuttle_table[1],
+                    shuttle_table[1],   # 노선명
                     row[1],
-                    shuttle_table[3],
+                    shuttle_table[3],   # 출발 승차장
                     row[3],
-                    shuttle_table[2],
+                    shuttle_table[2],   # 출발 시간
                     row[2],
-                    shuttle_table[4],
+                    shuttle_table[4],   # 탑승 금액
                     row[4],
-                    row[5],
+                    row[5]              # 비고
                 )
             break
     elif table_num==1:
         for index, shuttle_table in enumerate(shuttle_tables[column_value]):
             for row in shuttle_tables[row_value][index]:
-                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
-                    shuttle_table[0],
+                # ['지 역', '노선명', '출발 시간', '도착 시간', '도착 승차장', '탑승금액', '비고']
+                bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ] [ {8} : {9} ]\n [ {10} : {11} {12} ]\n\n\n".format(
+                    shuttle_table[0],   # 지역
                     row[0],
-                    shuttle_table[1],
+                    shuttle_table[1],   # 노선명
                     row[1],
-                    shuttle_table[3],
-                    row[3],
-                    shuttle_table[2],
+                    shuttle_table[2],   # 출발시간
                     row[2],
-                    shuttle_table[4],
+                    shuttle_table[3],   # 도착시간
+                    row[3],
+                    shuttle_table[4],   # 도착 승차장
                     row[4],
+                    shuttle_table[5],   # 탑승 금액
                     row[5],
+                    row[6]              # 비고
                 )
             break
     elif table_num == 2:
         for index, shuttle_table in enumerate(shuttle_tables[column_value]):
             for row in shuttle_tables[row_value][index]:
+                # ['', '원흥역', '삼송역', '캠퍼스 하차', '', '캠퍼스 승차', '고양동 사거리', '비고']
                 bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
                     shuttle_table[0],
                     row[0],
@@ -78,12 +83,13 @@ def MakeShuttleList(shuttle_tables, table_num):
                     row[2],
                     shuttle_table[4],
                     row[4],
-                    row[5],
+                    row[5]
                 )
             break
     elif table_num == 3:
         for index, shuttle_table in enumerate(shuttle_tables[column_value]):
             for row in shuttle_tables[row_value][index]:
+                # ['', '백석역', '화정역', '고양캠 하차', '', '고양캠 승차', '비고']
                 bus_info += "[ {0} ][ {1} ]\n[ {2} : {3} ]\n[ {4} : {5} ]\n[ {6} : {7} ]\n[ {8} : {9} {10} ]\n\n\n".format(
                     shuttle_table[0],
                     row[0],
@@ -148,10 +154,10 @@ def Message():
         }
     elif content == u"* 셔틀버스 시간표 *":
 
-        shuttle_table = crawler.shuttle_crawling()
+        shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
-                "text": MakeShuttleList(shuttle_table, 0)
+                "text": MakeShuttleList(shuttle_tables, 0) + MakeShuttleList(shuttle_tables, 1) # + MakeShuttleList(shuttle_tables, 2) +  MakeShuttleList(shuttle_tables, 3)
             }
         }
     elif content == u"* 033 *" or (content == u"* 033 -2 *"):
