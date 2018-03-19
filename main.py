@@ -5,12 +5,12 @@ import busAPI
 import crawler
 from crawler import datetime
 
-# do = True                               # first must be do parsing
-# day = datetime.datetime.now().day       # first init when process do
+# do = True                                     # first must be do parsing
+# day = datetime.datetime.now().day             # first init when process do
 # checker[do, day]
 cheacker = [True, datetime.datetime.now().day]
-shuttle_tables=crawler.shuttle_crawling() # do first Parsing
-
+shuttle_tables = crawler.shuttle_crawling()     # do first Parsing
+food_menus = crawler.food_crawling()            # do first Parsing
 app = Flask(__name__)
 
 
@@ -257,7 +257,9 @@ def Message():
                 }
             }
     elif content == u"* 학식 메뉴 *":
-        food_menus = crawler.food_crawling()
+        global food_menus
+        if crawler.ParsingCheaker(cheacker):
+            food_menus = crawler.food_crawling()
         send_data = {
             "message": {
                 "text": MakeFoodList(food_menus, 0) + MakeFoodList(food_menus, 1) + MakeFoodList(food_menus, 2) + MakeFoodList(food_menus, 3) + MakeFoodList(food_menus, 4)
