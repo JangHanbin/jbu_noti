@@ -1,8 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
-import main
+import datetime
+
+def ParsingCheaker(checker):
+    do = 0   # checker index
+    day = 1  # checker index
+    today = datetime.datetime.now().day
+
+    # Seems like Semaphore
+    if today > checker[day]:                        # if day goes by(check if need to parsing)
+        checker[do] = True                        # do Parsing
+        checker[day] = datetime.datetime.now().day  # set to day by today
+    else:
+        checker[do] = False
+
+    return checker[do]
+
 
 def shuttle_crawling():
+    print("Called Func!!!!")
     url = "http://www.joongbu.ac.kr/home/sub01_09_03.do"  # JBU Univ Shuttle bus information web page
 
     res = requests.get(url)

@@ -3,7 +3,12 @@
 from flask import Flask, request, jsonify
 import busAPI
 import crawler
+import datetime
 
+# do = True                               # first must be do parsing
+# day = datetime.datetime.now().day       # first init when process do
+# checker[do, day]
+cheacker = [True, datetime.datetime.now().day]
 app = Flask(__name__)
 
 
@@ -22,7 +27,6 @@ def Iswaiting(delay_info):
 def MakeFoodList(food_menus, day):
     return "[{0} 메뉴] ".format(food_menus[0][day]) + "\n" + "<한식>\n" + food_menus[1]["korean"][day] + "\n" + "<일품1>\n" + food_menus[1]["food1"][day] + "\n" + "<일품2>\n" + \
            food_menus[1]["food2"][day] + "\n\n\n"
-
 
 def MakeShuttleList(shuttle_tables, table_num):
     bus_info = str()
@@ -162,32 +166,32 @@ def Message():
             }
         }
     elif content == u"* 셔틀버스(등교) - 경기/서울 *":
-
-        shuttle_tables = crawler.shuttle_crawling()
+        if crawler.ParsingCheaker(cheacker):
+                shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
                 "text": MakeShuttleList(shuttle_tables, 0)
             }
         }
     elif content == u"* 셔틀버스(하교) - 경기/서울 *":
-
-        shuttle_tables = crawler.shuttle_crawling()
+        if crawler.ParsingCheaker(cheacker):
+            shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
                 "text": MakeShuttleList(shuttle_tables, 1)
             }
     }
     elif content == u"* 셔틀버스 - 삼송 *":
-
-        shuttle_tables = crawler.shuttle_crawling()
+        if crawler.ParsingCheaker(crawler):
+            shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
                 "text": MakeShuttleList(shuttle_tables, 2)
             }
         }
     elif content == u"* 셔틀버스 - 백석, 화정 *":
-
-        shuttle_tables = crawler.shuttle_crawling()
+        if crawler.ParsingCheaker(crawler):
+            shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
                 "text": MakeShuttleList(shuttle_tables, 3)
