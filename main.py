@@ -169,7 +169,7 @@ def Message():
         }
     elif content == u"* 셔틀버스(등교) - 경기/서울 *":
         if crawler.ParsingCheaker(cheacker):
-                global shuttle_tables = crawler.shuttle_crawling()
+                shuttle_tables = crawler.shuttle_crawling()
         send_data = {
             "message": {
                 "text": MakeShuttleList(shuttle_tables, 0)
