@@ -145,7 +145,7 @@ def Message():
     received_data = request.get_json()
     content = received_data['content']
     global shuttle_tables   # use global var to parsing day by day
-
+    global cheacker
 
     if content == u"시작하기":
         send_data = {
