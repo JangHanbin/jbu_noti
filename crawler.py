@@ -98,12 +98,7 @@ def shuttle_crawling():
                     time_table[iterator].insert(corrected_index, correct_list[2])
                     iterator += 1
 
-    for idx, time_table in enumerate(time_tables):
-        print(table_column[idx])
-        for time in time_table:
-            print(time)
-
-        print('\n\n\n\n\n\n\n\n\n')
+    return [table_column, time_table]
 
 
 

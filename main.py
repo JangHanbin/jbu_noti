@@ -1,7 +1,5 @@
 # -*- conding: utf-8 -*-
 
-
-import os
 from flask import Flask, request, jsonify
 import busAPI
 import crawler
@@ -25,6 +23,17 @@ def MakeFoodList(food_menus, day):
     return "[{0} 메뉴] ".format(food_menus[0][day]) + "\n" + "<한식>\n" + food_menus[1]["korean"][day] + "\n" + "<일품1>\n" + food_menus[1]["food1"][day] + "\n" + "<일품2>\n" + \
            food_menus[1]["food2"][day] + "\n\n\n"
 
+
+def MakeShuttleList(shuttle_table):
+    return "[ {0} ][ {1} ]\n[ {2} : {3} ] [ {4} : {5} ]\n [{6} : {7} {8}]\n\n\n".format(
+        shuttle_table[0][0],
+        shuttle_table[0][1],
+        shuttle_table[0][3],
+        shuttle_table[1][3],
+        shuttle_table[0][4],
+        shuttle_table[1][4],
+        shuttle_table[1][5]
+    )
 
 button_data = {
     "keyboard": {
@@ -67,20 +76,12 @@ def Message():
             }
         }
     elif content == u"* 셔틀버스 시간표 *":
+
+        shuttle_table = crawler.shuttle_crawling()
+        MakeShuttleList(shuttle_table)
         send_data = {
             "message": {
-                "text": "요기다가 "
-                        "각 시간을 넣으면"
-                        "될것 같은데"
-                        "현재시간을 파싱해서"
-                        "가장 가까운 셔틀을 "
-                        "출력해주는게 "
-                        "좋겠따."
-                        "셔틀은 홈페이지정보를 파싱했기때문에"
-                        "부정확할수도있다고"
-                        "말해줄것"
-                        "그리고 노선이 너무 많으므로 "
-                        "노선에 대한정보까지 입력받아 출력할 것"
+                "text": MakeShuttleList(shuttle_table)
             }
         }
     elif content == u"* 033 *" or (content == u"* 033 -2 *"):
