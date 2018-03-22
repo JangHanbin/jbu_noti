@@ -30,6 +30,10 @@ def MakeFoodList(food_menus, day):
     return "[{0} 메뉴] ".format(food_menus[0][day]) + "\n" + "<한식>\n" + food_menus[1]["korean"][day] + "\n" + "<일품1>\n" + food_menus[1]["food1"][day] + "\n" + "<일품2>\n" + \
            food_menus[1]["food2"][day] + "\n\n\n"
 
+def Isinfo(info):
+    return "정보 없음 " if info is "" else info
+
+
 def MakeShuttleList(shuttle_tables, table_num):
     bus_info = str()
 
@@ -99,25 +103,33 @@ def MakeShuttleList(shuttle_tables, table_num):
         bus_info = bus_info1 + "\n\n\n" + bus_info2
     elif table_num == 3:
         shuttle_table = shuttle_tables[column_value][table_num]
-        bus_info1 = "[ 등교 ]\n"
-        bus_info2 = "[ 하교 ]\n"
+        shuttle_table2 = shuttle_tables[column_value][table_num+1]
+        bus_info1 = "[ 등교 ]\n\n" + shuttle_table[0]+ "\n\n"
+        bus_info2 = shuttle_table[1]+"\n\n"
+        bus_info3 = "[ 하교 ]\n\n" +shuttle_table[2] + "\n\n"
+
         for row in shuttle_tables[row_value][table_num]:
-            # ['', '백석역', '화정역', '고양캠 하차', '', '고양캠 승차', '비고']]
-            bus_info1 += "[ {0} : {1} ][ {2} : {3} ]\n[ {4} : {5} ]\n\n".format(
-                shuttle_table[1],  # 역
-                row[0],
-                shuttle_table[2],  # 역 2
-                row[1],
-                shuttle_table[3],  # 하차 시간
-                row[2]
+
+            bus_info1 += "[ {0} : {1} ][ {2} : {3} ]\n".format(
+                Isinfo(shuttle_table2[0]),
+                Isinfo(row[0]),
+                Isinfo(shuttle_table2[1]),
+                Isinfo(row[1])
             )
-            bus_info2 += "[ {0} : {1} ][ {2} : {3} ]\n\n".format(
-                shuttle_table[5],  # 승차
-                row[3],
-                shuttle_table[6],  # 비고
-                "정보 없음 " if row[4] is "" else row[4]
+            bus_info2 += "[ {0} : {1} ][ {2} : {3} ]\n".format(
+                Isinfo(shuttle_table2[2]),
+                Isinfo(row[2]),
+                Isinfo(shuttle_table2[3]),
+                Isinfo(row[3])
             )
-        bus_info = bus_info1 + "\n\n\n" + bus_info2
+
+            bus_info3 += "[ {0} : {1} ][ {2} : {3} ]\n".format(
+                Isinfo(shuttle_table2[4]),
+                Isinfo(row[4]),
+                Isinfo(shuttle_table2[5]),
+                Isinfo(row[5])
+            )
+        bus_info = bus_info1 + "\n\n" + bus_info2 + "\n\n\n"+bus_info3
     return bus_info
 
 

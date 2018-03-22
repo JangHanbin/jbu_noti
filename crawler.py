@@ -2,15 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 
-
 def ParsingCheaker(checker):
-    do = 0   # checker index
+    do = 0  # checker index
     day = 1  # checker index
     global test
     today = datetime.datetime.now().day
     # Seems like Semaphore
-    if today > checker[day]:                        # if day goes by(check if need to parsing)
-        checker[do] = True                        # do Parsing
+    if today > checker[day]:  # if day goes by(check if need to parsing)
+        checker[do] = True  # do Parsing
         checker[day] = datetime.datetime.now().day  # set to day by today
     else:
         checker[do] = False
@@ -28,19 +27,20 @@ def shuttle_crawling():
     soup = BeautifulSoup(html, 'html.parser')  # parsing html(response html code) using html.parser
 
     routes = soup.select(
-        '#content > table > thead > tr > th'  # parsing this selector
+        '#content > table > thead > tr'  # parsing this selector
     )
     table_column = list()
     column = list()
 
     for route in routes:
-        column.append(route.text.strip())
+        route = route.find_all('th')
+        for col in route:
+            column.append(col.text.strip())
 
-        if 't_end' in route.get_attribute_list('class'):  # if end of the table column
-            table_column.append(column.copy())  # need to value copy. default is address copy.
-            column.clear()
+        # if end of the table column
+        table_column.append(column.copy())  # need to value copy. default is address copy.
+        column.clear()
 
-    # print(table_column)
     tables = soup.select(
         ' #content > table > tbody'
     )
@@ -49,7 +49,7 @@ def shuttle_crawling():
     time_ = list()
     time_tables = list()
     rowspan_corrector = list()
-    rowspan_correctors =list()
+    rowspan_correctors = list()
     rowspan_list = list()
 
     for table in tables:
@@ -84,7 +84,6 @@ def shuttle_crawling():
         rowspan_correctors.append(rowspan_corrector.copy())
         rowspan_corrector.clear()
 
-
     #   column_rowspan[rowspan_idx, num_of_rowspan, text]
     index_corrector = list()
 
@@ -92,13 +91,13 @@ def shuttle_crawling():
     for idx, time_table in enumerate(time_tables):
         # idx is table number
         # ex) [[table1],[table2],[table3]]
-        for c_idx, correctors in enumerate(rowspan_correctors[idx]): # if there is need to correct time table
+        for c_idx, correctors in enumerate(rowspan_correctors[idx]):  # if there is need to correct time table
             # correctors is list of need to correct rowspan
             # ex) [[correct_list1],[correct_list2]]
             for correct_list in correctors:
                 # correct_list is each list of need to correct
                 # ex) [rowspan_idx, num_of_rowspan, text]
-                corrected_index=correct_list[0]
+                corrected_index = correct_list[0]
                 # check if need to correct insert index
                 for index_correct in index_corrector:
                     # if same table num and belong to range & need to shift
@@ -106,7 +105,7 @@ def shuttle_crawling():
                         corrected_index += 1
 
                 # index_corrector[table_num, range_of_start,range_of_end,corrected_idx]
-                index_corrector.append([idx,c_idx, int(correct_list[1]) + c_idx, corrected_index])  # append correct info to correct index
+                index_corrector.append([idx, c_idx, int(correct_list[1]) + c_idx, corrected_index])  # append correct info to correct index
                 iterator = c_idx + 1  # To avoid first rowspan value, because already set value in first rowspan
                 span_idx = c_idx + int(correct_list[1])  # From index of row to +num of rowspan
 
@@ -114,6 +113,7 @@ def shuttle_crawling():
                 while iterator < span_idx:
                     time_table[iterator].insert(corrected_index, correct_list[2])
                     iterator += 1
+
 
     return [table_column, time_tables]
 
