@@ -270,7 +270,7 @@ def Message():
             }
     elif content == u"* 학식 메뉴 *":
         global food_menus
-        if crawler.ParsingCheaker(cheacker):
+        if crawler.ParsingCheaker(cheacker) or (datetime.datetime.now().day == 0):
             food_menus = crawler.food_crawling()
         send_data = {
             "message": {
